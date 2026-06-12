@@ -1,7 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import { Minus, Plus } from "lucide-react";
+import { Minus, Plus, Star } from "lucide-react";
 import { stickerImagePath } from "@/lib/data/stickers";
 import { cn } from "@/lib/utils";
 import type { UserStickerState } from "./sticker-book";
@@ -27,30 +27,42 @@ export function StickerTile({
   }
 
   return (
-    <div className="flex flex-col items-center gap-1">
-      {/* Sticker PNGs are 526x637 with their own rounded frame baked in. */}
+    <div className="flex flex-col items-center gap-1 pt-3">
+      {/* Game-style card: brown frame, star on top (gold = owned). */}
       <button
         type="button"
         onClick={toggleOwned}
-        className={cn(
-          "relative aspect-[526/637] w-full transition-all",
-          state.owned
-            ? "hover:scale-[1.03]"
-            : "opacity-50 saturate-50 hover:opacity-80"
-        )}
+        className="group relative w-full transition-transform hover:scale-[1.03]"
       >
-        <Image
-          src={stickerImagePath(id)}
-          alt={`Sticker ${id}`}
-          fill
-          sizes="140px"
-          className="object-contain"
+        <Star
+          className={cn(
+            "absolute -top-3 left-1/2 z-10 size-6 -translate-x-1/2 drop-shadow transition-colors",
+            state.owned
+              ? "fill-yellow-400 stroke-yellow-600"
+              : "fill-zinc-500 stroke-zinc-600"
+          )}
         />
-        {state.duplicates > 0 && (
-          <span className="absolute top-1 right-1 rounded-full bg-primary px-1.5 text-xs font-semibold text-primary-foreground shadow">
-            +{state.duplicates}
-          </span>
-        )}
+        <div
+          className={cn(
+            "relative aspect-[526/637] w-full overflow-hidden rounded-xl border-[3px] shadow-md transition-all",
+            state.owned
+              ? "border-amber-800 bg-amber-900"
+              : "border-zinc-400 bg-zinc-300 opacity-60 saturate-50 group-hover:opacity-85"
+          )}
+        >
+          <Image
+            src={stickerImagePath(id)}
+            alt={`Sticker ${id}`}
+            fill
+            sizes="140px"
+            className="scale-[1.06] object-cover"
+          />
+          {state.duplicates > 0 && (
+            <span className="absolute bottom-1 left-1/2 -translate-x-1/2 rounded-full bg-black/70 px-2.5 py-0.5 text-xs font-bold text-white">
+              +{state.duplicates}
+            </span>
+          )}
+        </div>
       </button>
       <div
         className={cn(
