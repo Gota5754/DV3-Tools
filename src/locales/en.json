@@ -1,0 +1,71 @@
+{
+  "Common": {
+    "appName": "DV3 Tools",
+    "loading": "Loading…",
+    "save": "Save",
+    "cancel": "Cancel",
+    "comingSoon": "Coming soon"
+  },
+  "Nav": {
+    "home": "Home",
+    "stickers": "Stickers",
+    "trade": "Trades",
+    "tierList": "Tier List",
+    "bossGuides": "Boss Guides",
+    "profile": "Profile",
+    "login": "Log in",
+    "logout": "Log out"
+  },
+  "Home": {
+    "title": "DV3 Tools",
+    "subtitle": "The Dragon Village 3 companion site",
+    "stickersCard": "Track your sticker book and find trading partners.",
+    "tierListCard": "Rankings of the best dragons (coming soon).",
+    "bossCard": "Detailed World Boss guides (coming soon).",
+    "getStarted": "Get started"
+  },
+  "Auth": {
+    "loginTitle": "Log in",
+    "signupTitle": "Create an account",
+    "email": "Email address",
+    "password": "Password",
+    "loginButton": "Log in",
+    "signupButton": "Sign up",
+    "noAccount": "No account yet?",
+    "hasAccount": "Already have an account?",
+    "checkEmail": "Check your inbox to confirm your registration.",
+    "error": "Error: {message}"
+  },
+  "Profile": {
+    "title": "My profile",
+    "ignLabel": "In-game name (IGN)",
+    "ignPlaceholder": "Your DV3 in-game name",
+    "ignHelp": "This name will be visible to other players on the Trade Board.",
+    "saved": "Profile saved!"
+  },
+  "Stickers": {
+    "title": "Sticker Book",
+    "subtitle": "{owned} / {total} stickers owned",
+    "collection": "Collection {number}",
+    "owned": "Owned",
+    "duplicates": "Duplicates",
+    "complete": "Complete!"
+  },
+  "Trade": {
+    "title": "Trade Board",
+    "subtitle": "Find trading partners",
+    "theyHave": "They have what you're missing",
+    "youHave": "They want your duplicates",
+    "noMatches": "No matches yet. Update your sticker book!",
+    "needIgn": "Set your in-game name in your profile to appear on the Trade Board.",
+    "stickerCount": "{count, plural, =1 {# sticker} other {# stickers}}"
+  },
+  "TierList": {
+    "title": "Tier List",
+    "description": "Dragon rankings are coming soon."
+  },
+  "BossGuides": {
+    "title": "World Boss Guides",
+    "description": "Guides for the 3 World Bosses are coming soon."
+  }
+}

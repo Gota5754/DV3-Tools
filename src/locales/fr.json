@@ -1,0 +1,71 @@
+{
+  "Common": {
+    "appName": "DV3 Tools",
+    "loading": "Chargement…",
+    "save": "Enregistrer",
+    "cancel": "Annuler",
+    "comingSoon": "Bientôt disponible"
+  },
+  "Nav": {
+    "home": "Accueil",
+    "stickers": "Stickers",
+    "trade": "Échanges",
+    "tierList": "Tier List",
+    "bossGuides": "Guides Boss",
+    "profile": "Profil",
+    "login": "Connexion",
+    "logout": "Déconnexion"
+  },
+  "Home": {
+    "title": "DV3 Tools",
+    "subtitle": "Le site compagnon de Dragon Village 3",
+    "stickersCard": "Suivez votre album de stickers et trouvez des partenaires d'échange.",
+    "tierListCard": "Classements des meilleurs dragons (bientôt).",
+    "bossCard": "Guides détaillés pour les World Boss (bientôt).",
+    "getStarted": "Commencer"
+  },
+  "Auth": {
+    "loginTitle": "Connexion",
+    "signupTitle": "Créer un compte",
+    "email": "Adresse e-mail",
+    "password": "Mot de passe",
+    "loginButton": "Se connecter",
+    "signupButton": "S'inscrire",
+    "noAccount": "Pas encore de compte ?",
+    "hasAccount": "Déjà un compte ?",
+    "checkEmail": "Vérifiez votre boîte mail pour confirmer votre inscription.",
+    "error": "Erreur : {message}"
+  },
+  "Profile": {
+    "title": "Mon profil",
+    "ignLabel": "Pseudo in-game (IGN)",
+    "ignPlaceholder": "Votre pseudo dans DV3",
+    "ignHelp": "Ce pseudo sera visible par les autres joueurs sur le Trade Board.",
+    "saved": "Profil enregistré !"
+  },
+  "Stickers": {
+    "title": "Album de stickers",
+    "subtitle": "{owned} / {total} stickers possédés",
+    "collection": "Collection {number}",
+    "owned": "Possédé",
+    "duplicates": "Doubles",
+    "complete": "Complète !"
+  },
+  "Trade": {
+    "title": "Trade Board",
+    "subtitle": "Trouvez des partenaires d'échange",
+    "theyHave": "Ils ont ce qu'il vous manque",
+    "youHave": "Ils cherchent vos doubles",
+    "noMatches": "Aucune correspondance pour le moment. Mettez à jour votre album !",
+    "needIgn": "Renseignez votre pseudo in-game dans votre profil pour apparaître sur le Trade Board.",
+    "stickerCount": "{count, plural, =1 {# sticker} other {# stickers}}"
+  },
+  "TierList": {
+    "title": "Tier List",
+    "description": "Les classements des dragons arrivent bientôt."
+  },
+  "BossGuides": {
+    "title": "Guides World Boss",
+    "description": "Les guides pour les 3 World Boss arrivent bientôt."
+  }
+}
