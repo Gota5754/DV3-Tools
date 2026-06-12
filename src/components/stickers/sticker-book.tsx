@@ -95,7 +95,7 @@ export function StickerBook({
                       className="object-cover transition-transform duration-300 group-hover:scale-105"
                     />
                     {/* Name label overlaid on the black band at the bottom of the PNG. */}
-                    <div className="absolute inset-x-0 bottom-0 flex items-center justify-center px-2 pb-1.5 pt-5">
+                    <div className="absolute inset-x-0 bottom-0 flex items-center justify-center px-2 pb-3.5 pt-5">
                       <span className="truncate text-center text-sm font-bold text-white drop-shadow">
                         {name}
                       </span>
