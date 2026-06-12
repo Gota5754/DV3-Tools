@@ -1,11 +1,13 @@
 "use client";
 
 import { useState } from "react";
+import Image from "next/image";
 import { useTranslations } from "next-intl";
 import {
   COLLECTION_NUMBERS,
   POSITION_NUMBERS,
   STICKERS_PER_COLLECTION,
+  collectionImagePath,
   stickerId,
 } from "@/lib/data/stickers";
 import { createClient } from "@/lib/supabase/client";
@@ -64,7 +66,18 @@ export function StickerBook({
         return (
           <Card key={collection}>
             <CardHeader className="flex-row items-center justify-between">
-              <CardTitle>{t("collection", { number: collection })}</CardTitle>
+              <div className="flex items-center gap-2">
+                <div className="relative size-8 shrink-0">
+                  <Image
+                    src={collectionImagePath(collection)}
+                    alt=""
+                    fill
+                    sizes="32px"
+                    className="object-contain"
+                  />
+                </div>
+                <CardTitle>{t("collection", { number: collection })}</CardTitle>
+              </div>
               <Badge variant={complete ? "default" : "secondary"}>
                 {complete
                   ? t("complete")

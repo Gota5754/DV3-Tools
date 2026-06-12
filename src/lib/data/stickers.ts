@@ -2,6 +2,7 @@
 // The database holds the same IDs; this module provides the client-side
 // mapping (image paths, grid layout) without a round-trip.
 
+export const SEASON = 1;
 export const COLLECTION_COUNT = 20;
 export const STICKERS_PER_COLLECTION = 9;
 export const TOTAL_STICKERS = COLLECTION_COUNT * STICKERS_PER_COLLECTION;
@@ -21,12 +22,21 @@ export function stickerCoords(id: number): { collection: number; position: numbe
 
 /**
  * Image path for a sticker. Files live in `public/stickers/` and are named
- * `<collection 2 digits>-<position>.png`, e.g. `/stickers/01-1.png`,
- * `/stickers/20-9.png`.
+ * `sticker_s<season>_p<collection>_<position>.png`,
+ * e.g. `/stickers/sticker_s1_p1_1.png` … `/stickers/sticker_s1_p20_9.png`.
  */
 export function stickerImagePath(id: number): string {
   const { collection, position } = stickerCoords(id);
-  return `/stickers/${String(collection).padStart(2, "0")}-${position}.png`;
+  return `/stickers/sticker_s${SEASON}_p${collection}_${position}.png`;
+}
+
+/**
+ * Cover image of a whole collection, named
+ * `sticker_list_s<season>_p<collection>.png`,
+ * e.g. `/stickers/sticker_list_s1_p1.png`.
+ */
+export function collectionImagePath(collection: number): string {
+  return `/stickers/sticker_list_s${SEASON}_p${collection}.png`;
 }
 
 export const COLLECTION_NUMBERS = Array.from(

@@ -13,13 +13,14 @@ Site compagnon pour **Dragon Village 3** — Sticker Book Tracker, Trade Board, 
 
 ## Images des stickers
 
-Placer les 180 fichiers `.png` dans **`public/stickers/`** avec la nomenclature :
+Placer les fichiers `.png` dans **`public/stickers/`** avec la nomenclature :
 
 ```
-<numéro de collection sur 2 chiffres>-<position 1 à 9>.png
+sticker_s<saison>_p<collection 1-20>_<position 1-9>.png   # les 180 stickers
+sticker_list_s<saison>_p<collection 1-20>.png             # les 20 couvertures de collection
 ```
 
-Exemples : `01-1.png` (collection 1, sticker 1) … `20-9.png` (collection 20, sticker 9).
+Exemples : `sticker_s1_p1_1.png` (saison 1, collection 1, sticker 1) … `sticker_s1_p20_9.png`, et `sticker_list_s1_p1.png` pour la couverture de la collection 1.
 
 Le mapping vers la base de données est automatique : `sticker_id = (collection - 1) × 9 + position`.
 
