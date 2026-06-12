@@ -17,18 +17,21 @@ export interface Database {
         Row: {
           id: string;
           ign: string | null;
+          discord: string | null;
           created_at: string;
           updated_at: string;
         };
         Insert: {
           id: string;
           ign?: string | null;
+          discord?: string | null;
           created_at?: string;
           updated_at?: string;
         };
         Update: {
           id?: string;
           ign?: string | null;
+          discord?: string | null;
           created_at?: string;
           updated_at?: string;
         };
@@ -116,6 +119,7 @@ export interface Database {
           partner_ign: string;
           they_have: number[];
           they_need: number[];
+          partner_discord: string | null;
         }[];
       };
     };
@@ -128,5 +132,4 @@ export type Profile = Database["public"]["Tables"]["profiles"]["Row"];
 export type Collection = Database["public"]["Tables"]["collections"]["Row"];
 export type Sticker = Database["public"]["Tables"]["stickers"]["Row"];
 export type UserSticker = Database["public"]["Tables"]["user_stickers"]["Row"];
-export type TradeMatch =
-  Database["public"]["Functions"]["get_trade_matches"]["Returns"][number];
+export type TradeMatch = Database["public"]["Functions"]["get_trade_matches"]["Returns"][number];

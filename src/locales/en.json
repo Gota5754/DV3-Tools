@@ -41,6 +41,9 @@
     "ignLabel": "In-game name (IGN)",
     "ignPlaceholder": "Your DV3 in-game name",
     "ignHelp": "This name will be visible to other players on the Trade Board.",
+    "discordLabel": "Discord (optional)",
+    "discordPlaceholder": "your.username",
+    "discordHelp": "Shown on the Trade Board to make trading easier.",
     "saved": "Profile saved!"
   },
   "Stickers": {

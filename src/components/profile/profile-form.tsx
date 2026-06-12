@@ -7,10 +7,17 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 
-export function ProfileForm({ initialIgn }: { initialIgn: string }) {
+export function ProfileForm({
+  initialIgn,
+  initialDiscord,
+}: {
+  initialIgn: string;
+  initialDiscord: string;
+}) {
   const t = useTranslations("Profile");
   const tCommon = useTranslations("Common");
   const [ign, setIgn] = useState(initialIgn);
+  const [discord, setDiscord] = useState(initialDiscord);
   const [status, setStatus] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
 
@@ -22,7 +29,11 @@ export function ProfileForm({ initialIgn }: { initialIgn: string }) {
     const { data: { user } } = await supabase.auth.getUser();
     const { error } = await supabase
       .from("profiles")
-      .update({ ign: ign.trim() || null, updated_at: new Date().toISOString() })
+      .update({
+        ign: ign.trim() || null,
+        discord: discord.trim() || null,
+        updated_at: new Date().toISOString(),
+      })
       .eq("id", user!.id);
     setStatus(error ? error.message : t("saved"));
     setLoading(false);
@@ -36,6 +47,7 @@ export function ProfileForm({ initialIgn }: { initialIgn: string }) {
         </h2>
       </div>
       <form onSubmit={handleSubmit} className="space-y-5 px-6 py-6">
+        {/* IGN */}
         <div className="space-y-2">
           <Label htmlFor="ign" className="text-slate-300">{t("ignLabel")}</Label>
           <Input
@@ -49,6 +61,24 @@ export function ProfileForm({ initialIgn }: { initialIgn: string }) {
           />
           <p className="text-sm text-slate-500">{t("ignHelp")}</p>
         </div>
+
+        {/* Discord */}
+        <div className="space-y-2">
+          <Label htmlFor="discord" className="text-slate-300">{t("discordLabel")}</Label>
+          <div className="flex items-center gap-2">
+            <span className="text-slate-500">@</span>
+            <Input
+              id="discord"
+              value={discord}
+              placeholder={t("discordPlaceholder")}
+              maxLength={64}
+              onChange={(e) => setDiscord(e.target.value)}
+              className="border-slate-700 bg-slate-800 text-slate-100 placeholder:text-slate-500 focus-visible:border-indigo-500/60 focus-visible:ring-indigo-500/20"
+            />
+          </div>
+          <p className="text-sm text-slate-500">{t("discordHelp")}</p>
+        </div>
+
         {status && (
           <p className="rounded-lg border border-slate-700 bg-slate-800/60 px-3 py-2 text-sm text-slate-300">
             {status}

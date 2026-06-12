@@ -41,6 +41,9 @@
     "ignLabel": "Pseudo in-game (IGN)",
     "ignPlaceholder": "Votre pseudo dans DV3",
     "ignHelp": "Ce pseudo sera visible par les autres joueurs sur le Trade Board.",
+    "discordLabel": "Discord (optionnel)",
+    "discordPlaceholder": "votre.pseudo",
+    "discordHelp": "Affiché sur le Trade Board pour faciliter les échanges.",
     "saved": "Profil enregistré !"
   },
   "Stickers": {
