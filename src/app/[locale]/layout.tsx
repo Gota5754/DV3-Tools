@@ -27,14 +27,12 @@ export default async function LocaleLayout({
   params: Promise<{ locale: string }>;
 }) {
   const { locale } = await params;
-  if (!hasLocale(routing.locales, locale)) {
-    notFound();
-  }
+  if (!hasLocale(routing.locales, locale)) notFound();
   setRequestLocale(locale);
 
   return (
-    <html lang={locale}>
-      <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
+    <html lang={locale} className="dark">
+      <body className={`${geistSans.variable} ${geistMono.variable} antialiased min-h-screen`}>
         <NextIntlClientProvider>
           <Navbar />
           <main className="mx-auto w-full max-w-6xl px-4 py-8">{children}</main>
