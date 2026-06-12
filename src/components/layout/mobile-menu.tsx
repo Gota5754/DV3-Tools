@@ -15,6 +15,7 @@ export function MobileMenu() {
     { href: "/trade",       label: t("trade") },
     { href: "/tier-list",   label: t("tierList") },
     { href: "/boss-guides", label: t("bossGuides") },
+    { href: "/profile",     label: t("profile") },
   ];
 
   return (
