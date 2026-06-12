@@ -28,25 +28,26 @@ export function StickerTile({
 
   return (
     <div className="flex flex-col items-center gap-1">
+      {/* Sticker PNGs are 526x637 with their own rounded frame baked in. */}
       <button
         type="button"
         onClick={toggleOwned}
         className={cn(
-          "relative aspect-square w-full overflow-hidden rounded-md border transition-all",
+          "relative aspect-[526/637] w-full transition-all",
           state.owned
-            ? "border-primary ring-1 ring-primary"
-            : "opacity-40 grayscale hover:opacity-70"
+            ? "hover:scale-[1.03]"
+            : "opacity-50 saturate-50 hover:opacity-80"
         )}
       >
         <Image
           src={stickerImagePath(id)}
           alt={`Sticker ${id}`}
           fill
-          sizes="120px"
-          className="object-cover"
+          sizes="140px"
+          className="object-contain"
         />
         {state.duplicates > 0 && (
-          <span className="absolute top-0.5 right-0.5 rounded-full bg-primary px-1.5 text-xs font-semibold text-primary-foreground">
+          <span className="absolute top-1 right-1 rounded-full bg-primary px-1.5 text-xs font-semibold text-primary-foreground shadow">
             +{state.duplicates}
           </span>
         )}

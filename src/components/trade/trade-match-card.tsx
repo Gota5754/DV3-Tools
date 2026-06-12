@@ -16,7 +16,7 @@ function StickerRow({ ids }: { ids: number[] }) {
       {ids.map((id) => (
         <div
           key={id}
-          className="relative size-12 overflow-hidden rounded border"
+          className="relative aspect-[526/637] w-12"
           title={`Sticker ${id}`}
         >
           <Image
@@ -24,7 +24,7 @@ function StickerRow({ ids }: { ids: number[] }) {
             alt={`Sticker ${id}`}
             fill
             sizes="48px"
-            className="object-cover"
+            className="object-contain"
           />
         </div>
       ))}
