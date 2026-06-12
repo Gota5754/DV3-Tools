@@ -31,8 +31,16 @@ export function LoginForm() {
     const supabase = createClient();
 
     if (mode === "signup") {
-      const { error } = await supabase.auth.signUp({ email, password });
-      setMessage(error ? t("error", { message: error.message }) : t("checkEmail"));
+      const { data, error } = await supabase.auth.signUp({ email, password });
+      if (error) {
+        setMessage(t("error", { message: error.message }));
+      } else if (data.session) {
+        // Email confirmation disabled: the user is signed in right away.
+        router.push("/stickers");
+        router.refresh();
+      } else {
+        setMessage(t("checkEmail"));
+      }
     } else {
       const { error } = await supabase.auth.signInWithPassword({ email, password });
       if (error) {
