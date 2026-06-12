@@ -2,8 +2,9 @@
 
 import { useState } from "react";
 import Image from "next/image";
-import { useTranslations } from "next-intl";
+import { useLocale, useTranslations } from "next-intl";
 import {
+  COLLECTION_NAMES,
   COLLECTION_NUMBERS,
   POSITION_NUMBERS,
   STICKERS_PER_COLLECTION,
@@ -21,6 +22,7 @@ import {
 } from "@/components/ui/dialog";
 import { cn } from "@/lib/utils";
 import { StickerTile } from "./sticker-tile";
+import type { Locale } from "@/i18n/routing";
 
 export interface UserStickerState {
   owned: boolean;
@@ -37,12 +39,13 @@ export function StickerBook({
   initialState: Record<number, UserStickerState>;
 }) {
   const t = useTranslations("Stickers");
+  const locale = useLocale() as Locale;
+  const names = COLLECTION_NAMES[locale] ?? COLLECTION_NAMES.fr;
   const [state, setState] = useState(initialState);
 
   const ownedTotal = Object.values(state).filter((s) => s.owned).length;
 
   async function update(id: number, next: UserStickerState) {
-    // Optimistic update; revert on failure.
     const prev = state[id] ?? EMPTY;
     setState((s) => ({ ...s, [id]: next }));
     const { error } = await createClient()
@@ -54,9 +57,7 @@ export function StickerBook({
         duplicates: next.duplicates,
         updated_at: new Date().toISOString(),
       });
-    if (error) {
-      setState((s) => ({ ...s, [id]: prev }));
-    }
+    if (error) setState((s) => ({ ...s, [id]: prev }));
   }
 
   return (
@@ -67,10 +68,12 @@ export function StickerBook({
 
       <div className="grid grid-cols-2 gap-4 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5">
         {COLLECTION_NUMBERS.map((collection) => {
+          const name = names[collection - 1];
           const ownedInCollection = POSITION_NUMBERS.filter(
             (p) => state[stickerId(collection, p)]?.owned
           ).length;
           const complete = ownedInCollection === STICKERS_PER_COLLECTION;
+          const pct = (ownedInCollection / STICKERS_PER_COLLECTION) * 100;
 
           return (
             <Dialog key={collection}>
@@ -78,41 +81,46 @@ export function StickerBook({
                 <button
                   type="button"
                   className={cn(
-                    "group flex flex-col overflow-hidden rounded-xl border-2 text-left shadow-sm transition-all hover:-translate-y-1 hover:shadow-lg",
+                    "group relative overflow-hidden rounded-2xl border-2 text-left shadow-sm transition-all hover:-translate-y-1 hover:shadow-lg",
                     complete ? "border-amber-400" : "border-border"
                   )}
                 >
+                  {/* Cover image — fills entire button including the black band. */}
                   <div className="relative aspect-square w-full bg-muted">
                     <Image
                       src={collectionImagePath(collection)}
-                      alt={t("collection", { number: collection })}
+                      alt={name}
                       fill
                       sizes="(max-width: 640px) 50vw, 20vw"
                       className="object-cover transition-transform duration-300 group-hover:scale-105"
                     />
+                    {/* Name label overlaid on the black band at the bottom of the PNG. */}
+                    <div className="absolute inset-x-0 bottom-0 flex items-center justify-center px-2 pb-1.5 pt-5">
+                      <span className="truncate text-center text-sm font-bold text-white drop-shadow">
+                        {name}
+                      </span>
+                    </div>
+                    {/* Progress badge top-right. */}
+                    <div className="absolute top-1.5 right-1.5">
+                      <Badge
+                        variant={complete ? "default" : "secondary"}
+                        className={cn(
+                          "text-xs",
+                          complete && "bg-amber-500 text-white"
+                        )}
+                      >
+                        {complete ? t("complete") : `${ownedInCollection}/${STICKERS_PER_COLLECTION}`}
+                      </Badge>
+                    </div>
                   </div>
-                  <div className="flex w-full items-center justify-between gap-2 p-2">
-                    <span className="truncate text-sm font-semibold">
-                      {t("collection", { number: collection })}
-                    </span>
-                    <Badge
-                      variant={complete ? "default" : "secondary"}
-                      className={cn(complete && "bg-amber-500 text-white")}
-                    >
-                      {complete
-                        ? t("complete")
-                        : `${ownedInCollection}/${STICKERS_PER_COLLECTION}`}
-                    </Badge>
-                  </div>
-                  <div className="h-1.5 w-full bg-muted">
+                  {/* Thin progress bar at the very bottom. */}
+                  <div className="h-1 w-full bg-muted">
                     <div
                       className={cn(
                         "h-full transition-all",
                         complete ? "bg-amber-400" : "bg-primary"
                       )}
-                      style={{
-                        width: `${(ownedInCollection / STICKERS_PER_COLLECTION) * 100}%`,
-                      }}
+                      style={{ width: `${pct}%` }}
                     />
                   </div>
                 </button>
@@ -120,7 +128,7 @@ export function StickerBook({
 
               <DialogContent className="max-w-md">
                 <div className="flex items-center gap-3">
-                  <div className="relative size-12 shrink-0 overflow-hidden rounded-lg border">
+                  <div className="relative size-12 shrink-0 overflow-hidden rounded-xl border">
                     <Image
                       src={collectionImagePath(collection)}
                       alt=""
@@ -130,9 +138,7 @@ export function StickerBook({
                     />
                   </div>
                   <div>
-                    <DialogTitle>
-                      {t("collection", { number: collection })}
-                    </DialogTitle>
+                    <DialogTitle>{name}</DialogTitle>
                     <p className="text-sm text-muted-foreground">
                       {ownedInCollection}/{STICKERS_PER_COLLECTION}
                     </p>

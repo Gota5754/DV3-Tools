@@ -7,6 +7,53 @@ export const COLLECTION_COUNT = 20;
 export const STICKERS_PER_COLLECTION = 9;
 export const TOTAL_STICKERS = COLLECTION_COUNT * STICKERS_PER_COLLECTION;
 
+export const COLLECTION_NAMES: Record<"fr" | "en", string[]> = {
+  fr: [
+    "Monstre sauvage",
+    "Monstre sous-marin",
+    "Monstre de Donjon",
+    "Histoire principale",
+    "Vie en forêt",
+    "Zone volcanique",
+    "Être des ténèbres",
+    "Lieu spécial",
+    "Temps de jeu",
+    "Choc d'Acier",
+    "Forêt des fées",
+    "Sous la mer",
+    "Village fantôme",
+    "Sous la lumière",
+    "Royaume du Ciel",
+    "Été chaleureux",
+    "Hiver froid",
+    "Matin doux",
+    "Après-midi animé",
+    "Nuit calme",
+  ],
+  en: [
+    "Wild Monsters",
+    "Water Monsters",
+    "Dungeon Monsters",
+    "Main Story",
+    "Forest Life",
+    "Volcanic Zone",
+    "Beings in the Dark",
+    "Special Places",
+    "Playtime",
+    "Steel Shock",
+    "Fairy Forest",
+    "Under the Sea",
+    "Ghost Village",
+    "Under the Light",
+    "Sky Kingdom",
+    "Warm Summer",
+    "Cold Winter",
+    "Lazy Morning",
+    "Lively Afternoon",
+    "Quiet Night",
+  ],
+};
+
 /** Global sticker id (1..180) from collection number (1..20) and position (1..9). */
 export function stickerId(collection: number, position: number): number {
   return (collection - 1) * STICKERS_PER_COLLECTION + position;
