@@ -24,7 +24,7 @@ function StickerRow({ ids }: { ids: number[] }) {
             alt={`Sticker ${id}`}
             fill
             sizes="48px"
-            className="object-contain p-0.5"
+            className="object-cover"
           />
         </div>
       ))}

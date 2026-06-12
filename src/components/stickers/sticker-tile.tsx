@@ -43,7 +43,7 @@ export function StickerTile({
           alt={`Sticker ${id}`}
           fill
           sizes="120px"
-          className="object-contain p-1"
+          className="object-cover"
         />
         {state.duplicates > 0 && (
           <span className="absolute top-0.5 right-0.5 rounded-full bg-primary px-1.5 text-xs font-semibold text-primary-foreground">
