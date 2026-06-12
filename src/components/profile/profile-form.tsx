@@ -29,7 +29,7 @@ export function ProfileForm({ initialIgn }: { initialIgn: string }) {
   }
 
   return (
-    <div className="overflow-hidden rounded-2xl border border-slate-700/60 bg-slate-900 shadow-2xl shadow-black/30">
+    <div className="overflow-hidden rounded-2xl border border-slate-700 bg-slate-800/50 shadow-lg shadow-black/40">
       <div className="border-b border-slate-700/60 px-6 py-5">
         <h2 className="bg-gradient-to-r from-amber-300 to-amber-500 bg-clip-text font-bold tracking-wide text-transparent">
           {t("title")}

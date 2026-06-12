@@ -5,9 +5,9 @@
 
 :root {
   --radius: 0.75rem;
-  --background: oklch(0.08 0.02 260);
+  --background: oklch(0.11 0.03 262);
   --foreground: oklch(0.92 0.01 240);
-  --card: oklch(0.12 0.02 260);
+  --card: oklch(0.16 0.03 262);
   --card-foreground: oklch(0.92 0.01 240);
   --popover: oklch(0.12 0.02 260);
   --popover-foreground: oklch(0.92 0.01 240);
@@ -59,11 +59,12 @@
 
   body {
     @apply bg-background text-foreground;
-    /* Radial gradient: soft light at centre, deep dark at edges */
+    /* Radial gradient: deep night-blue, brighter at the top centre */
     background-image: radial-gradient(
-      ellipse 80% 60% at 50% 0%,
-      oklch(0.14 0.04 260) 0%,
-      oklch(0.08 0.02 260) 70%
+      ellipse 90% 70% at 50% 0%,
+      oklch(0.22 0.06 262) 0%,
+      oklch(0.15 0.045 262) 45%,
+      oklch(0.11 0.03 262) 100%
     );
     background-attachment: fixed;
   }

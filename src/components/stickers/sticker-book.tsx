@@ -62,14 +62,14 @@ export function StickerBook({
   return (
     <div className="space-y-6">
       {/* Global counter */}
-      <div className="flex items-center gap-3">
-        <div className="h-2 flex-1 overflow-hidden rounded-full bg-slate-800">
+      <div className="flex items-center gap-4 rounded-2xl border border-slate-700 bg-slate-800/50 p-4 shadow-lg">
+        <div className="h-4 flex-1 overflow-hidden rounded-full border border-slate-700 bg-slate-950/80 shadow-inner">
           <div
-            className="h-full rounded-full bg-amber-500 transition-all duration-500"
+            className="h-full rounded-full bg-gradient-to-r from-amber-600 to-amber-400 shadow-[0_0_10px_rgba(245,158,11,0.5)] transition-all duration-500"
             style={{ width: `${(ownedTotal / TOTAL_STICKERS) * 100}%` }}
           />
         </div>
-        <span className="shrink-0 text-sm font-semibold tabular-nums text-amber-400">
+        <span className="shrink-0 text-base font-bold tabular-nums text-amber-400">
           {ownedTotal} / {TOTAL_STICKERS}
         </span>
       </div>
@@ -90,11 +90,11 @@ export function StickerBook({
                 <button
                   type="button"
                   className={cn(
-                    "group relative overflow-hidden rounded-2xl border text-left transition-all duration-300",
+                    "group relative overflow-hidden rounded-2xl border text-left shadow-lg shadow-black/40 transition-all duration-300",
                     "hover:-translate-y-1.5 hover:shadow-xl",
                     complete
-                      ? "border-amber-500/60 hover:shadow-amber-500/20"
-                      : "border-slate-700/50 bg-slate-900 hover:border-indigo-500/40 hover:shadow-indigo-500/15"
+                      ? "border-amber-500/60 bg-slate-800/50 hover:shadow-amber-500/20"
+                      : "border-slate-700 bg-slate-800/50 hover:border-indigo-500/40 hover:shadow-indigo-500/15"
                   )}
                 >
                   {/* Cover image */}

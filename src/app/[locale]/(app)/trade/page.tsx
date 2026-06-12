@@ -26,7 +26,7 @@ export default async function TradePage({
   return (
     <div className="space-y-8">
       <div>
-        <h1 className="bg-gradient-to-r from-amber-300 to-amber-500 bg-clip-text text-2xl font-bold tracking-wide text-transparent">
+        <h1 className="bg-gradient-to-r from-amber-300 via-amber-400 to-amber-600 bg-clip-text text-3xl font-extrabold tracking-wide text-transparent drop-shadow-[0_2px_8px_rgba(245,158,11,0.25)] sm:text-4xl">
           {t("title")}
         </h1>
         <p className="mt-1 text-slate-400">{t("subtitle")}</p>

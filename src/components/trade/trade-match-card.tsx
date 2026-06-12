@@ -30,7 +30,7 @@ export async function TradeMatchCard({ match }: { match: TradeMatch }) {
   const t = await getTranslations("Trade");
 
   return (
-    <div className="overflow-hidden rounded-2xl border border-slate-700/50 bg-slate-900 shadow-lg shadow-black/30 transition-all duration-300 hover:-translate-y-1 hover:border-indigo-500/30 hover:shadow-xl hover:shadow-indigo-500/10">
+    <div className="overflow-hidden rounded-2xl border border-slate-700 bg-slate-800/50 shadow-lg shadow-black/40 transition-all duration-300 hover:-translate-y-1 hover:border-indigo-500/30 hover:shadow-xl hover:shadow-indigo-500/10">
       {/* Card header */}
       <div className="border-b border-slate-700/60 px-5 py-4">
         <p className="font-bold tracking-wide text-slate-100">{match.partner_ign}</p>

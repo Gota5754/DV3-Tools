@@ -46,7 +46,7 @@ export function LoginForm() {
   }
 
   return (
-    <div className="w-full max-w-sm overflow-hidden rounded-2xl border border-slate-700/60 bg-slate-900 shadow-2xl shadow-black/40">
+    <div className="w-full max-w-sm overflow-hidden rounded-2xl border border-slate-700 bg-slate-800/50 shadow-lg shadow-black/40">
       {/* Header band */}
       <div className="border-b border-slate-700/60 px-6 py-5">
         <h2 className="bg-gradient-to-r from-amber-300 to-amber-500 bg-clip-text text-xl font-bold tracking-wide text-transparent">
