@@ -17,6 +17,25 @@ export function isTradeable(id: number): boolean {
   return !NON_TRADEABLE_IDS.has(id);
 }
 
+/**
+ * Number of stars (rarity) per sticker ID. Omitted = 1 star.
+ * Filled in progressively as in-game screenshots are provided.
+ */
+export const STICKER_STARS: Partial<Record<number, 2 | 3>> = {
+  // Collection 2 — Water Monsters
+  18: 2,
+  // Collection 3 — Dungeon Monsters
+  26: 2, 27: 2,
+  // Collection 4 — Main Story
+  34: 2, 35: 2, 36: 2,
+  // Collection 5 — Forest Life
+  41: 2, 42: 2, 43: 2, 44: 2, 45: 2,
+};
+
+export function stickerStars(id: number): 1 | 2 | 3 {
+  return (STICKER_STARS[id] ?? 1) as 1 | 2 | 3;
+}
+
 export const SEASON = 1;
 export const COLLECTION_COUNT = 20;
 export const STICKERS_PER_COLLECTION = 9;

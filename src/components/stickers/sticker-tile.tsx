@@ -3,10 +3,29 @@
 import Image from "next/image";
 import { Lock, Minus, Plus, Star } from "lucide-react";
 import { useLocale } from "next-intl";
-import { isTradeable, stickerImagePath, stickerName } from "@/lib/data/stickers";
+import { isTradeable, stickerImagePath, stickerName, stickerStars } from "@/lib/data/stickers";
 import { cn } from "@/lib/utils";
 import type { Locale } from "@/i18n/routing";
 import type { UserStickerState } from "./sticker-book";
+
+function StarRow({ count, owned }: { count: 1 | 2 | 3; owned: boolean }) {
+  return (
+    <div className="absolute -top-3 left-1/2 z-10 flex -translate-x-1/2 gap-px drop-shadow">
+      {Array.from({ length: count }).map((_, i) => (
+        <Star
+          key={i}
+          className={cn(
+            "transition-colors",
+            count === 1 ? "size-6" : count === 2 ? "size-5" : "size-4",
+            owned
+              ? "fill-yellow-400 stroke-yellow-500"
+              : "fill-zinc-500 stroke-zinc-600"
+          )}
+        />
+      ))}
+    </div>
+  );
+}
 
 export function StickerTile({
   id,
@@ -20,6 +39,7 @@ export function StickerTile({
   const locale = useLocale() as Locale;
   const name = stickerName(id, locale);
   const tradeable = isTradeable(id);
+  const stars = stickerStars(id);
 
   function toggleOwned() {
     const owned = !state.owned;
@@ -38,14 +58,7 @@ export function StickerTile({
         onClick={toggleOwned}
         className="group relative w-full transition-transform hover:scale-[1.03]"
       >
-        <Star
-          className={cn(
-            "absolute -top-3 left-1/2 z-10 size-6 -translate-x-1/2 drop-shadow transition-colors",
-            state.owned
-              ? "fill-yellow-400 stroke-yellow-600"
-              : "fill-zinc-500 stroke-zinc-600"
-          )}
-        />
+        <StarRow count={stars} owned={state.owned} />
         <div
           className={cn(
             "relative aspect-[526/637] w-full overflow-hidden rounded-xl border-[3px] shadow-md transition-all",
