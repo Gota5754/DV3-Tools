@@ -21,7 +21,7 @@ export function isTradeable(id: number): boolean {
  * Number of stars (rarity) per sticker ID. Omitted = 1 star.
  * Filled in progressively as in-game screenshots are provided.
  */
-export const STICKER_STARS: Partial<Record<number, 2 | 3 | 4>> = {
+export const STICKER_STARS: Partial<Record<number, 2 | 3 | 4 | 5>> = {
   // Collection 2 — Water Monsters
   18: 2,
   // Collection 3 — Dungeon Monsters
@@ -50,10 +50,20 @@ export const STICKER_STARS: Partial<Record<number, 2 | 3 | 4>> = {
   118: 3, 119: 3, 120: 3, 121: 3, 122: 3, 123: 4, 124: 4, 125: 4, 126: 4,
   // Collection 15 — Sky Kingdom
   127: 3, 128: 3, 129: 3, 130: 3, 131: 4, 132: 4, 133: 4, 134: 4, 135: 4,
+  // Collection 16 — Warm Summer
+  136: 3, 137: 3, 138: 4, 139: 4, 140: 4, 141: 4, 142: 4, 143: 4, 144: 4,
+  // Collection 17 — Cold Winter
+  145: 3, 146: 3, 147: 4, 148: 3, 149: 4, 150: 4, 151: 4, 152: 4, 153: 4,
+  // Collection 18 — Lazy Morning
+  154: 3, 155: 4, 156: 4, 157: 4, 158: 3, 159: 4, 160: 4, 161: 4, 162: 4,
+  // Collection 19 — Lively Afternoon
+  163: 4, 164: 4, 165: 4, 166: 4, 167: 4, 168: 5, 169: 4, 170: 4, 171: 4,
+  // Collection 20 — Quiet Night
+  172: 4, 173: 4, 174: 3, 175: 3, 176: 4, 177: 4, 178: 4, 179: 4, 180: 4,
 };
 
-export function stickerStars(id: number): 1 | 2 | 3 | 4 {
-  return (STICKER_STARS[id] ?? 1) as 1 | 2 | 3 | 4;
+export function stickerStars(id: number): 1 | 2 | 3 | 4 | 5 {
+  return (STICKER_STARS[id] ?? 1) as 1 | 2 | 3 | 4 | 5;
 }
 
 export const SEASON = 1;

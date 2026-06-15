@@ -8,14 +8,15 @@ import { cn } from "@/lib/utils";
 import type { Locale } from "@/i18n/routing";
 import type { UserStickerState } from "./sticker-book";
 
-const STAR_SIZE: Record<1 | 2 | 3 | 4, string> = {
+const STAR_SIZE: Record<1 | 2 | 3 | 4 | 5, string> = {
   1: "size-6",
   2: "size-5",
   3: "size-4",
   4: "size-3.5",
+  5: "size-3",
 };
 
-function StarRow({ count, owned }: { count: 1 | 2 | 3 | 4; owned: boolean }) {
+function StarRow({ count, owned }: { count: 1 | 2 | 3 | 4 | 5; owned: boolean }) {
   return (
     <div className="absolute -top-3 left-1/2 z-10 flex -translate-x-1/2 gap-px drop-shadow">
       {Array.from({ length: count }).map((_, i) => (
@@ -46,7 +47,7 @@ export function StickerTile({
   const locale = useLocale() as Locale;
   const name = stickerName(id, locale);
   const tradeable = isTradeable(id);
-  const stars = stickerStars(id) as 1 | 2 | 3 | 4;
+  const stars = stickerStars(id) as 1 | 2 | 3 | 4 | 5;
 
   function toggleOwned() {
     const owned = !state.owned;
