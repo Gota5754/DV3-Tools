@@ -30,6 +30,16 @@ export const STICKER_STARS: Partial<Record<number, 2 | 3>> = {
   34: 2, 35: 2, 36: 2,
   // Collection 5 — Forest Life
   41: 2, 42: 2, 43: 2, 44: 2, 45: 2,
+  // Collection 6 — Volcanic Zone
+  49: 2, 50: 2, 51: 2, 52: 2, 53: 2, 54: 3,
+  // Collection 7 — Beings in the Dark
+  57: 2, 58: 2, 59: 2, 60: 2, 61: 2, 62: 3, 63: 3,
+  // Collection 8 — Special Places
+  65: 2, 66: 2, 67: 2, 68: 2, 69: 3, 70: 3, 71: 3, 72: 3,
+  // Collection 9 — Playtime (all ≥ 2⭐)
+  73: 2, 74: 2, 75: 2, 76: 2, 77: 2, 78: 3, 79: 3, 80: 3, 81: 3,
+  // Collection 10 — Steel Shock
+  82: 2, 83: 2, 84: 2, 85: 2, 86: 3, 87: 3, 88: 3, 89: 3, 90: 3,
 };
 
 export function stickerStars(id: number): 1 | 2 | 3 {
