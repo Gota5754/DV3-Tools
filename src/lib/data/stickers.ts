@@ -2,6 +2,21 @@
 // The database holds the same IDs; this module provides the client-side
 // mapping (image paths, grid layout) without a round-trip.
 
+/**
+ * Sticker IDs that cannot be traded between players.
+ * They still appear in the sticker book (markable as owned) but the duplicate
+ * counter is hidden and they are excluded from trade matching.
+ */
+export const NON_TRADEABLE_IDS = new Set([
+  108, 117, 125, 133, 135, 141, 144, 149, 150, 153,
+  157, 158, 161, 162, 166, 167, 170, 171,
+  172, 173, 174, 178, 179, 180,
+]);
+
+export function isTradeable(id: number): boolean {
+  return !NON_TRADEABLE_IDS.has(id);
+}
+
 export const SEASON = 1;
 export const COLLECTION_COUNT = 20;
 export const STICKERS_PER_COLLECTION = 9;

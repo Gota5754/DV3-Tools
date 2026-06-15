@@ -7,22 +7,39 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 
+const UID_RE = /^\d{3}-\d{3}-\d{3}$/;
+
 export function ProfileForm({
   initialIgn,
   initialDiscord,
+  initialUid,
 }: {
   initialIgn: string;
   initialDiscord: string;
+  initialUid: string;
 }) {
   const t = useTranslations("Profile");
   const tCommon = useTranslations("Common");
   const [ign, setIgn] = useState(initialIgn);
   const [discord, setDiscord] = useState(initialDiscord);
+  const [uid, setUid] = useState(initialUid);
   const [status, setStatus] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
 
+  function formatUid(value: string) {
+    // Keep only digits, max 9
+    const digits = value.replace(/\D/g, "").slice(0, 9);
+    if (digits.length <= 3) return digits;
+    if (digits.length <= 6) return `${digits.slice(0, 3)}-${digits.slice(3)}`;
+    return `${digits.slice(0, 3)}-${digits.slice(3, 6)}-${digits.slice(6)}`;
+  }
+
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
+    if (uid && !UID_RE.test(uid)) {
+      setStatus(t("uidInvalid"));
+      return;
+    }
     setLoading(true);
     setStatus(null);
     const supabase = createClient();
@@ -32,6 +49,7 @@ export function ProfileForm({
       .update({
         ign: ign.trim() || null,
         discord: discord.trim() || null,
+        uid: uid.trim() || null,
         updated_at: new Date().toISOString(),
       })
       .eq("id", user!.id);
@@ -60,6 +78,20 @@ export function ProfileForm({
             className="border-slate-700 bg-slate-800 text-slate-100 placeholder:text-slate-500 focus-visible:border-amber-500/60 focus-visible:ring-amber-500/20"
           />
           <p className="text-sm text-slate-500">{t("ignHelp")}</p>
+        </div>
+
+        {/* UID */}
+        <div className="space-y-2">
+          <Label htmlFor="uid" className="text-slate-300">{t("uidLabel")}</Label>
+          <Input
+            id="uid"
+            value={uid}
+            placeholder="000-000-000"
+            maxLength={11}
+            onChange={(e) => setUid(formatUid(e.target.value))}
+            className="border-slate-700 bg-slate-800 font-mono text-slate-100 placeholder:text-slate-500 focus-visible:border-amber-500/60 focus-visible:ring-amber-500/20"
+          />
+          <p className="text-sm text-slate-500">{t("uidHelp")}</p>
         </div>
 
         {/* Discord */}

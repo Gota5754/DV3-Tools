@@ -18,6 +18,7 @@ export interface Database {
           id: string;
           ign: string | null;
           discord: string | null;
+          uid: string | null;
           created_at: string;
           updated_at: string;
         };
@@ -25,6 +26,7 @@ export interface Database {
           id: string;
           ign?: string | null;
           discord?: string | null;
+          uid?: string | null;
           created_at?: string;
           updated_at?: string;
         };
@@ -32,6 +34,7 @@ export interface Database {
           id?: string;
           ign?: string | null;
           discord?: string | null;
+          uid?: string | null;
           created_at?: string;
           updated_at?: string;
         };
@@ -117,9 +120,10 @@ export interface Database {
         Returns: {
           partner_id: string;
           partner_ign: string;
+          partner_discord: string | null;
+          partner_uid: string | null;
           they_have: number[];
           they_need: number[];
-          partner_discord: string | null;
         }[];
       };
     };
