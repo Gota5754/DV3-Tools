@@ -7,7 +7,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 
-const UID_RE = /^\d{3}-\d{3}-\d{3}$/;
+const UID_RE = /^[A-Za-z0-9]{3}-[A-Za-z0-9]{3}-[A-Za-z0-9]{3}$/;
 
 export function ProfileForm({
   initialIgn,
@@ -27,11 +27,11 @@ export function ProfileForm({
   const [loading, setLoading] = useState(false);
 
   function formatUid(value: string) {
-    // Keep only digits, max 9
-    const digits = value.replace(/\D/g, "").slice(0, 9);
-    if (digits.length <= 3) return digits;
-    if (digits.length <= 6) return `${digits.slice(0, 3)}-${digits.slice(3)}`;
-    return `${digits.slice(0, 3)}-${digits.slice(3, 6)}-${digits.slice(6)}`;
+    // Keep only alphanumeric chars, max 9
+    const chars = value.replace(/[^A-Za-z0-9]/g, "").slice(0, 9);
+    if (chars.length <= 3) return chars;
+    if (chars.length <= 6) return `${chars.slice(0, 3)}-${chars.slice(3)}`;
+    return `${chars.slice(0, 3)}-${chars.slice(3, 6)}-${chars.slice(6)}`;
   }
 
   async function handleSubmit(e: React.FormEvent) {

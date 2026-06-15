@@ -42,7 +42,7 @@
     "ignPlaceholder": "Your DV3 in-game name",
     "ignHelp": "This name will be visible to other players on the Trade Board.",
     "uidLabel": "In-game UID",
-    "uidHelp": "Your UID in XXX-XXX-XXX format (found in your game settings).",
+    "uidHelp": "Your UID in XXX-XXX-XXX format (visible at the top left of your in-game profile).",
     "uidInvalid": "Invalid format, expected: XXX-XXX-XXX (digits only).",
     "discordLabel": "Discord (optional)",
     "discordPlaceholder": "your.username",

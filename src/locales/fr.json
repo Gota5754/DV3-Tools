@@ -42,7 +42,7 @@
     "ignPlaceholder": "Votre pseudo dans DV3",
     "ignHelp": "Ce pseudo sera visible par les autres joueurs sur le Trade Board.",
     "uidLabel": "UID in-game",
-    "uidHelp": "Votre UID au format XXX-XXX-XXX (visible dans les paramètres du jeu).",
+    "uidHelp": "Votre UID au format XXX-XXX-XXX (visible en haut à gauche de votre profil in-game).",
     "uidInvalid": "Format invalide, attendu : XXX-XXX-XXX (chiffres uniquement).",
     "discordLabel": "Discord (optionnel)",
     "discordPlaceholder": "votre.pseudo",

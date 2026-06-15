@@ -103,6 +103,10 @@ export function StickerTile({
       ) : (
         <span className="text-[10px] text-slate-500">non-éch.</span>
       )}
+      {/* Name always visible — the only way to read it on mobile */}
+      <span className="w-full truncate text-center text-[10px] leading-tight text-slate-400">
+        {name}
+      </span>
     </div>
   );
 }
