@@ -1,14 +1,10 @@
 "use client";
 
-import Image from "next/image";
 import { Accordion, AccordionItem } from "@/components/ui/accordion";
 import { Separator } from "@/components/ui/separator";
-import {
-  stickerImagePath,
-  stickerName,
-  stickerCoords,
-  COLLECTION_NAMES,
-} from "@/lib/data/stickers";
+import { stickerCoords, COLLECTION_NAMES } from "@/lib/data/stickers";
+import { StickerThumb } from "./sticker-thumb";
+import { TradeOfferBuilder, type BuilderLabels } from "./trade-offer-builder";
 import type { TradeMatch } from "@/lib/supabase/types";
 import type { Locale } from "@/i18n/routing";
 
@@ -40,31 +36,10 @@ function StickerGrid({
             {COLLECTION_NAMES[locale][collection - 1]}{" "}
             <span className="text-slate-600">({colIds.length})</span>
           </p>
-          <div className="flex flex-wrap gap-2">
-            {colIds.map((id) => {
-              const name = stickerName(id, locale);
-              return (
-                <div key={id} className="flex flex-col items-center gap-1">
-                  <div className="group relative aspect-[526/637] w-14 overflow-hidden rounded-lg border border-slate-700/60">
-                    <Image
-                      src={stickerImagePath(id)}
-                      alt={name}
-                      fill
-                      sizes="56px"
-                      className="object-cover"
-                    />
-                    <div className="absolute inset-x-0 bottom-0 translate-y-full opacity-0 transition-all duration-150 group-hover:translate-y-0 group-hover:opacity-100">
-                      <div className="bg-black/85 px-1 py-0.5 text-center text-[9px] leading-tight text-white">
-                        {name}
-                      </div>
-                    </div>
-                  </div>
-                  <span className="w-14 truncate text-center text-[9px] leading-tight text-slate-500">
-                    {name}
-                  </span>
-                </div>
-              );
-            })}
+          <div className="flex flex-wrap gap-1.5">
+            {colIds.map((id) => (
+              <StickerThumb key={id} id={id} locale={locale} />
+            ))}
           </div>
         </div>
       ))}
@@ -72,15 +47,13 @@ function StickerGrid({
   );
 }
 
-function MatchSummary({ match, locale, theyHaveLabel, youHaveLabel }: {
+function MatchSummary({ match, theyHaveLabel, youHaveLabel }: {
   match: TradeMatch;
-  locale: Locale;
   theyHaveLabel: string;
   youHaveLabel: string;
 }) {
   return (
     <div className="flex min-w-0 flex-col gap-2 sm:flex-row sm:items-center sm:gap-4">
-      {/* IGN + UID + Discord */}
       <div className="min-w-0 flex-1">
         <div className="flex flex-wrap items-center gap-2">
           <span className="font-bold text-slate-100">{match.partner_ign}</span>
@@ -99,7 +72,6 @@ function MatchSummary({ match, locale, theyHaveLabel, youHaveLabel }: {
           )}
         </div>
       </div>
-      {/* Score badges */}
       <div className="flex shrink-0 flex-wrap gap-1.5">
         <span className="rounded-full bg-amber-500/15 px-2.5 py-0.5 text-xs font-semibold text-amber-400">
           ↓ {match.they_have.length} {theyHaveLabel}
@@ -113,10 +85,13 @@ function MatchSummary({ match, locale, theyHaveLabel, youHaveLabel }: {
 }
 
 export function TradeMatchList({
+  userId,
   matches,
   locale,
   labels,
+  builderLabels,
 }: {
+  userId: string;
   matches: TradeMatch[];
   locale: Locale;
   labels: {
@@ -125,6 +100,7 @@ export function TradeMatchList({
     theyHaveShort: string;
     youHaveShort: string;
   };
+  builderLabels: BuilderLabels;
 }) {
   const sorted = [...matches].sort(
     (a, b) =>
@@ -140,7 +116,6 @@ export function TradeMatchList({
           summary={
             <MatchSummary
               match={match}
-              locale={locale}
               theyHaveLabel={labels.theyHaveShort}
               youHaveLabel={labels.youHaveShort}
             />
@@ -159,6 +134,14 @@ export function TradeMatchList({
                 {labels.youHave}
               </p>
               <StickerGrid ids={match.they_need} locale={locale} accentClass="text-indigo-600" />
+            </div>
+            <div className="flex justify-end pt-1">
+              <TradeOfferBuilder
+                userId={userId}
+                match={match}
+                locale={locale}
+                labels={builderLabels}
+              />
             </div>
           </div>
         </AccordionItem>

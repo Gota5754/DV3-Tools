@@ -46,6 +46,7 @@ export default async function TradePage({
         <p className="text-slate-500">{t("noMatches")}</p>
       ) : (
         <TradeMatchList
+          userId={user!.id}
           matches={matches}
           locale={currentLocale}
           labels={{
@@ -53,6 +54,19 @@ export default async function TradePage({
             theyHaveShort: t("theyHaveShort"),
             youHave: t("youHave"),
             youHaveShort: t("youHaveShort"),
+          }}
+          builderLabels={{
+            propose: t("propose"),
+            title: t("builderTitle"),
+            description: t("builderDescription"),
+            youGive: t("youGive"),
+            youReceive: t("youReceive"),
+            starTotal: t("starTotal"),
+            send: t("sendOffer"),
+            sending: t("sending"),
+            sent: t("offerSent"),
+            error: t("offerError"),
+            pickBoth: t("pickBoth"),
           }}
         />
       )}

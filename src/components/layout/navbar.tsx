@@ -14,6 +14,16 @@ export async function Navbar() {
     data: { user },
   } = await supabase.auth.getUser();
 
+  let pendingCount = 0;
+  if (user) {
+    const { count } = await supabase
+      .from("trade_offers")
+      .select("id", { count: "exact", head: true })
+      .eq("to_user", user.id)
+      .eq("status", "pending");
+    pendingCount = count ?? 0;
+  }
+
   return (
     <header className="sticky top-0 z-50 border-b border-slate-800 bg-slate-950/70 backdrop-blur-md">
       <nav className="mx-auto flex h-14 w-full max-w-6xl items-center gap-4 px-4">
@@ -28,17 +38,23 @@ export async function Navbar() {
         {/* Desktop links */}
         <div className="hidden items-center gap-1 text-sm md:flex">
           {[
-            { href: "/stickers",    label: t("stickers") },
-            { href: "/trade",       label: t("trade") },
-            { href: "/tier-list",   label: t("tierList") },
-            { href: "/boss-guides", label: t("bossGuides") },
-          ].map(({ href, label }) => (
+            { href: "/stickers",    label: t("stickers"),    badge: 0 },
+            { href: "/trade",       label: t("trade"),       badge: 0 },
+            { href: "/my-trades",   label: t("myTrades"),    badge: pendingCount },
+            { href: "/tier-list",   label: t("tierList"),    badge: 0 },
+            { href: "/boss-guides", label: t("bossGuides"),  badge: 0 },
+          ].map(({ href, label, badge }) => (
             <Link
               key={href}
               href={href}
-              className="rounded-md px-3 py-1.5 text-slate-400 transition-colors hover:bg-slate-800 hover:text-slate-100"
+              className="relative rounded-md px-3 py-1.5 text-slate-400 transition-colors hover:bg-slate-800 hover:text-slate-100"
             >
               {label}
+              {badge > 0 && (
+                <span className="absolute -top-0.5 -right-0.5 flex size-4 items-center justify-center rounded-full bg-amber-500 text-[10px] font-bold text-slate-950">
+                  {badge}
+                </span>
+              )}
             </Link>
           ))}
         </div>
@@ -69,7 +85,7 @@ export async function Navbar() {
             </Button>
           )}
           {/* Mobile hamburger */}
-          <MobileMenu />
+          <MobileMenu pendingCount={pendingCount} />
         </div>
       </nav>
     </header>

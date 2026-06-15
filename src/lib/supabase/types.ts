@@ -10,6 +10,13 @@ export type Json =
   | { [key: string]: Json | undefined }
   | Json[];
 
+export type TradeOfferStatus =
+  | "pending"
+  | "accepted"
+  | "rejected"
+  | "cancelled"
+  | "completed";
+
 export interface Database {
   public: {
     Tables: {
@@ -112,6 +119,39 @@ export interface Database {
         };
         Relationships: [];
       };
+      trade_offers: {
+        Row: {
+          id: string;
+          from_user: string;
+          to_user: string;
+          offered_sticker_ids: number[];
+          requested_sticker_ids: number[];
+          status: TradeOfferStatus;
+          from_confirmed: boolean;
+          to_confirmed: boolean;
+          created_at: string;
+          updated_at: string;
+        };
+        Insert: {
+          id?: string;
+          from_user: string;
+          to_user: string;
+          offered_sticker_ids: number[];
+          requested_sticker_ids: number[];
+          status?: TradeOfferStatus;
+          from_confirmed?: boolean;
+          to_confirmed?: boolean;
+          created_at?: string;
+          updated_at?: string;
+        };
+        Update: {
+          status?: TradeOfferStatus;
+          from_confirmed?: boolean;
+          to_confirmed?: boolean;
+          updated_at?: string;
+        };
+        Relationships: [];
+      };
     };
     Views: Record<string, never>;
     Functions: {
@@ -126,6 +166,35 @@ export interface Database {
           they_need: number[];
         }[];
       };
+      get_my_trade_offers: {
+        Args: Record<string, never>;
+        Returns: {
+          id: string;
+          i_am_sender: boolean;
+          partner_id: string;
+          partner_ign: string | null;
+          partner_discord: string | null;
+          partner_uid: string | null;
+          offered_ids: number[];
+          requested_ids: number[];
+          status: TradeOfferStatus;
+          from_confirmed: boolean;
+          to_confirmed: boolean;
+          created_at: string;
+        }[];
+      };
+      respond_to_trade: {
+        Args: { p_offer_id: string; p_accept: boolean };
+        Returns: string;
+      };
+      cancel_trade: {
+        Args: { p_offer_id: string };
+        Returns: string;
+      };
+      confirm_trade: {
+        Args: { p_offer_id: string };
+        Returns: string;
+      };
     };
     Enums: Record<string, never>;
     CompositeTypes: Record<string, never>;
@@ -137,3 +206,5 @@ export type Collection = Database["public"]["Tables"]["collections"]["Row"];
 export type Sticker = Database["public"]["Tables"]["stickers"]["Row"];
 export type UserSticker = Database["public"]["Tables"]["user_stickers"]["Row"];
 export type TradeMatch = Database["public"]["Functions"]["get_trade_matches"]["Returns"][number];
+export type TradeOffer = Database["public"]["Tables"]["trade_offers"]["Row"];
+export type MyTradeOffer = Database["public"]["Functions"]["get_my_trade_offers"]["Returns"][number];
