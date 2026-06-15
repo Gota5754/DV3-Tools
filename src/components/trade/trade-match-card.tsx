@@ -1,41 +1,74 @@
 import Image from "next/image";
 import { getTranslations, getLocale } from "next-intl/server";
-import { stickerImagePath, stickerName } from "@/lib/data/stickers";
+import {
+  stickerImagePath,
+  stickerName,
+  stickerCoords,
+  COLLECTION_NAMES,
+} from "@/lib/data/stickers";
 import type { Locale } from "@/i18n/routing";
 import type { TradeMatch } from "@/lib/supabase/types";
 import { Separator } from "@/components/ui/separator";
 
-async function StickerRow({ ids }: { ids: number[] }) {
+function groupByCollection(ids: number[]): Map<number, number[]> {
+  const map = new Map<number, number[]>();
+  for (const id of ids) {
+    const { collection } = stickerCoords(id);
+    if (!map.has(collection)) map.set(collection, []);
+    map.get(collection)!.push(id);
+  }
+  return map;
+}
+
+async function StickersByCollection({
+  ids,
+  accentClass,
+}: {
+  ids: number[];
+  accentClass: string;
+}) {
   const locale = (await getLocale()) as Locale;
+  const grouped = groupByCollection(ids);
+
   return (
-    <div className="flex flex-wrap gap-2">
-      {ids.map((id) => {
-        const name = stickerName(id, locale);
-        return (
-          <div key={id} className="flex flex-col items-center gap-1">
-            <div
-              className="group relative aspect-[526/637] w-16 overflow-hidden rounded-lg border border-slate-700/60"
-              title={name}
-            >
-              <Image
-                src={stickerImagePath(id)}
-                alt={name}
-                fill
-                sizes="64px"
-                className="object-cover"
-              />
-              <div className="absolute inset-x-0 bottom-0 translate-y-full opacity-0 transition-all duration-150 group-hover:translate-y-0 group-hover:opacity-100">
-                <div className="bg-black/85 px-1 py-0.5 text-center text-[9px] leading-tight text-white">
-                  {name}
+    <div className="space-y-4">
+      {Array.from(grouped.entries()).map(([collection, colIds]) => (
+        <div key={collection}>
+          <p className={`mb-2 text-[10px] font-semibold uppercase tracking-widest ${accentClass}`}>
+            {COLLECTION_NAMES[locale][collection - 1]}{" "}
+            <span className="text-slate-600">({colIds.length})</span>
+          </p>
+          <div className="flex flex-wrap gap-2">
+            {colIds.map((id) => {
+              const name = stickerName(id, locale);
+              return (
+                <div key={id} className="flex flex-col items-center gap-1">
+                  <div
+                    className="group relative aspect-[526/637] w-14 overflow-hidden rounded-lg border border-slate-700/60"
+                    title={name}
+                  >
+                    <Image
+                      src={stickerImagePath(id)}
+                      alt={name}
+                      fill
+                      sizes="56px"
+                      className="object-cover"
+                    />
+                    <div className="absolute inset-x-0 bottom-0 translate-y-full opacity-0 transition-all duration-150 group-hover:translate-y-0 group-hover:opacity-100">
+                      <div className="bg-black/85 px-1 py-0.5 text-center text-[9px] leading-tight text-white">
+                        {name}
+                      </div>
+                    </div>
+                  </div>
+                  <span className="w-14 truncate text-center text-[9px] leading-tight text-slate-500">
+                    {name}
+                  </span>
                 </div>
-              </div>
-            </div>
-            <span className="w-16 truncate text-center text-[9px] leading-tight text-slate-500">
-              {name}
-            </span>
+              );
+            })}
           </div>
-        );
-      })}
+        </div>
+      ))}
     </div>
   );
 }
@@ -63,31 +96,34 @@ export async function TradeMatchCard({ match }: { match: TradeMatch }) {
             @{match.partner_discord}
           </p>
         )}
+        {/* Summary badges */}
+        <div className="mt-3 flex flex-wrap gap-2">
+          <span className="rounded-full bg-amber-500/15 px-2.5 py-0.5 text-xs font-semibold text-amber-400">
+            {t("theyHave")} — {t("stickerCount", { count: match.they_have.length })}
+          </span>
+          <span className="rounded-full bg-indigo-500/15 px-2.5 py-0.5 text-xs font-semibold text-indigo-400">
+            {t("youHave")} — {t("stickerCount", { count: match.they_need.length })}
+          </span>
+        </div>
       </div>
 
-      <div className="space-y-4 px-5 py-4">
+      <div className="space-y-5 px-5 py-5">
         {/* They have what you need */}
-        <div className="space-y-2">
-          <p className="text-xs font-semibold uppercase tracking-widest text-amber-400">
-            {t("theyHave")}{" "}
-            <span className="text-slate-500">
-              — {t("stickerCount", { count: match.they_have.length })}
-            </span>
+        <div>
+          <p className="mb-3 text-xs font-semibold uppercase tracking-widest text-amber-400">
+            {t("theyHave")}
           </p>
-          <StickerRow ids={match.they_have} />
+          <StickersByCollection ids={match.they_have} accentClass="text-amber-600" />
         </div>
 
         <Separator className="bg-slate-700/60" />
 
         {/* They want your duplicates */}
-        <div className="space-y-2">
-          <p className="text-xs font-semibold uppercase tracking-widest text-indigo-400">
-            {t("youHave")}{" "}
-            <span className="text-slate-500">
-              — {t("stickerCount", { count: match.they_need.length })}
-            </span>
+        <div>
+          <p className="mb-3 text-xs font-semibold uppercase tracking-widest text-indigo-400">
+            {t("youHave")}
           </p>
-          <StickerRow ids={match.they_need} />
+          <StickersByCollection ids={match.they_need} accentClass="text-indigo-600" />
         </div>
       </div>
     </div>
