@@ -8,27 +8,31 @@ import { Separator } from "@/components/ui/separator";
 async function StickerRow({ ids }: { ids: number[] }) {
   const locale = (await getLocale()) as Locale;
   return (
-    <div className="flex flex-wrap gap-1.5">
+    <div className="flex flex-wrap gap-2">
       {ids.map((id) => {
         const name = stickerName(id, locale);
         return (
-          <div
-            key={id}
-            className="group relative aspect-[526/637] w-11 overflow-hidden rounded-lg border border-slate-700/60"
-            title={name}
-          >
-            <Image
-              src={stickerImagePath(id)}
-              alt={name}
-              fill
-              sizes="44px"
-              className="object-cover"
-            />
-            <div className="absolute inset-x-0 bottom-0 translate-y-full opacity-0 transition-all duration-150 group-hover:translate-y-0 group-hover:opacity-100">
-              <div className="bg-black/85 px-1 py-0.5 text-center text-[9px] leading-tight text-white">
-                {name}
+          <div key={id} className="flex flex-col items-center gap-1">
+            <div
+              className="group relative aspect-[526/637] w-16 overflow-hidden rounded-lg border border-slate-700/60"
+              title={name}
+            >
+              <Image
+                src={stickerImagePath(id)}
+                alt={name}
+                fill
+                sizes="64px"
+                className="object-cover"
+              />
+              <div className="absolute inset-x-0 bottom-0 translate-y-full opacity-0 transition-all duration-150 group-hover:translate-y-0 group-hover:opacity-100">
+                <div className="bg-black/85 px-1 py-0.5 text-center text-[9px] leading-tight text-white">
+                  {name}
+                </div>
               </div>
             </div>
+            <span className="w-16 truncate text-center text-[9px] leading-tight text-slate-500">
+              {name}
+            </span>
           </div>
         );
       })}

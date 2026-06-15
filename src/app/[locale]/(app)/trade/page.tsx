@@ -43,7 +43,7 @@ export default async function TradePage({
       {!matches?.length ? (
         <p className="text-slate-500">{t("noMatches")}</p>
       ) : (
-        <div className="grid gap-4 md:grid-cols-2">
+        <div className="grid gap-6">
           {matches.map((match) => (
             <TradeMatchCard key={match.partner_id} match={match} />
           ))}
