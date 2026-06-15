@@ -1,27 +1,37 @@
 import Image from "next/image";
-import { getTranslations } from "next-intl/server";
-import { stickerImagePath } from "@/lib/data/stickers";
+import { getTranslations, getLocale } from "next-intl/server";
+import { stickerImagePath, stickerName } from "@/lib/data/stickers";
+import type { Locale } from "@/i18n/routing";
 import type { TradeMatch } from "@/lib/supabase/types";
 import { Separator } from "@/components/ui/separator";
 
-function StickerRow({ ids }: { ids: number[] }) {
+async function StickerRow({ ids }: { ids: number[] }) {
+  const locale = (await getLocale()) as Locale;
   return (
     <div className="flex flex-wrap gap-1.5">
-      {ids.map((id) => (
-        <div
-          key={id}
-          className="relative aspect-[526/637] w-11 overflow-hidden rounded-lg border border-slate-700/60"
-          title={`Sticker ${id}`}
-        >
-          <Image
-            src={stickerImagePath(id)}
-            alt={`Sticker ${id}`}
-            fill
-            sizes="44px"
-            className="object-cover"
-          />
-        </div>
-      ))}
+      {ids.map((id) => {
+        const name = stickerName(id, locale);
+        return (
+          <div
+            key={id}
+            className="group relative aspect-[526/637] w-11 overflow-hidden rounded-lg border border-slate-700/60"
+            title={name}
+          >
+            <Image
+              src={stickerImagePath(id)}
+              alt={name}
+              fill
+              sizes="44px"
+              className="object-cover"
+            />
+            <div className="absolute inset-x-0 bottom-0 translate-y-full opacity-0 transition-all duration-150 group-hover:translate-y-0 group-hover:opacity-100">
+              <div className="bg-black/85 px-1 py-0.5 text-center text-[9px] leading-tight text-white">
+                {name}
+              </div>
+            </div>
+          </div>
+        );
+      })}
     </div>
   );
 }

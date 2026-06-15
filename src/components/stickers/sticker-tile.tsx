@@ -2,8 +2,10 @@
 
 import Image from "next/image";
 import { Lock, Minus, Plus, Star } from "lucide-react";
-import { isTradeable, stickerImagePath } from "@/lib/data/stickers";
+import { useLocale } from "next-intl";
+import { isTradeable, stickerImagePath, stickerName } from "@/lib/data/stickers";
 import { cn } from "@/lib/utils";
+import type { Locale } from "@/i18n/routing";
 import type { UserStickerState } from "./sticker-book";
 
 export function StickerTile({
@@ -15,6 +17,8 @@ export function StickerTile({
   state: UserStickerState;
   onChange: (next: UserStickerState) => void;
 }) {
+  const locale = useLocale() as Locale;
+  const name = stickerName(id, locale);
   const tradeable = isTradeable(id);
 
   function toggleOwned() {
@@ -52,17 +56,27 @@ export function StickerTile({
         >
           <Image
             src={stickerImagePath(id)}
-            alt={`Sticker ${id}`}
+            alt={name}
+            title={name}
             fill
             sizes="140px"
             className="scale-[1.06] object-cover"
           />
-          {/* Lock badge for non-tradeable stickers */}
+
+          {/* Tooltip name — slides up on hover */}
+          <div className="absolute inset-x-0 bottom-0 translate-y-full opacity-0 transition-all duration-200 group-hover:translate-y-0 group-hover:opacity-100">
+            <div className="bg-black/80 px-1.5 py-1 text-center text-[10px] leading-tight text-white backdrop-blur-sm">
+              {name}
+            </div>
+          </div>
+
+          {/* Lock badge for non-tradeable */}
           {!tradeable && (
             <span className="absolute top-1 left-1 rounded-full bg-black/60 p-1">
               <Lock className="size-2.5 text-slate-300" />
             </span>
           )}
+
           {state.duplicates > 0 && (
             <span className="absolute bottom-1 left-1/2 -translate-x-1/2 rounded-full bg-black/70 px-2.5 py-0.5 text-xs font-bold text-white">
               +{state.duplicates}
@@ -71,7 +85,6 @@ export function StickerTile({
         </div>
       </button>
 
-      {/* Duplicate counter — hidden for non-tradeable stickers */}
       {tradeable ? (
         <div
           className={cn(
@@ -79,23 +92,11 @@ export function StickerTile({
             !state.owned && "pointer-events-none opacity-30"
           )}
         >
-          <button
-            type="button"
-            onClick={() => changeDuplicates(-1)}
-            className="rounded border p-0.5 hover:bg-accent"
-            aria-label="-1"
-          >
+          <button type="button" onClick={() => changeDuplicates(-1)} className="rounded border p-0.5 hover:bg-accent" aria-label="-1">
             <Minus className="size-3" />
           </button>
-          <span className="w-5 text-center text-xs tabular-nums">
-            {state.duplicates}
-          </span>
-          <button
-            type="button"
-            onClick={() => changeDuplicates(1)}
-            className="rounded border p-0.5 hover:bg-accent"
-            aria-label="+1"
-          >
+          <span className="w-5 text-center text-xs tabular-nums">{state.duplicates}</span>
+          <button type="button" onClick={() => changeDuplicates(1)} className="rounded border p-0.5 hover:bg-accent" aria-label="+1">
             <Plus className="size-3" />
           </button>
         </div>
