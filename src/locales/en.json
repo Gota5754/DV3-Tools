@@ -68,6 +68,11 @@
     "needIgn": "Set your in-game name in your profile to appear on the Trade Board.",
     "stickerCount": "{count, plural, =1 {# sticker} other {# stickers}}"
   },
+  "Footer": {
+    "support": "If this tool is useful to you, consider supporting the developer",
+    "disclaimer": "DV3 Tools — fan-made companion site, not affiliated with Dragon Village 3",
+    "kofi": "Support the project — Ko-fi"
+  },
   "TierList": {
     "title": "Tier List",
     "description": "Dragon rankings are coming soon."

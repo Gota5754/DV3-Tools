@@ -5,7 +5,7 @@ import { NextIntlClientProvider, hasLocale } from "next-intl";
 import { setRequestLocale } from "next-intl/server";
 import { routing } from "@/i18n/routing";
 import { Navbar } from "@/components/layout/navbar";
-import { KofiButton } from "@/components/layout/kofi-button";
+import { Footer } from "@/components/layout/footer";
 import "../globals.css";
 
 const geistSans = Geist({ variable: "--font-geist-sans", subsets: ["latin"] });
@@ -37,11 +37,7 @@ export default async function LocaleLayout({
         <NextIntlClientProvider>
           <Navbar />
           <main className="mx-auto w-full max-w-6xl px-4 py-8">{children}</main>
-          <footer className="mt-12 border-t border-slate-800 py-10 text-center">
-            <p className="mb-1 text-sm text-slate-400">If this tool is useful to you, consider supporting the developer</p>
-            <p className="mb-5 text-xs text-slate-600">DV3 Tools — fan-made companion site, not affiliated with Dragon Village 3</p>
-            <KofiButton />
-          </footer>
+          <Footer />
         </NextIntlClientProvider>
       </body>
     </html>

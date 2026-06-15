@@ -68,6 +68,11 @@
     "needIgn": "Renseignez votre pseudo in-game dans votre profil pour apparaître sur le Trade Board.",
     "stickerCount": "{count, plural, =1 {# sticker} other {# stickers}}"
   },
+  "Footer": {
+    "support": "Si cet outil vous est utile, pensez à soutenir le développeur",
+    "disclaimer": "DV3 Tools — site fan non officiel, sans lien avec Dragon Village 3",
+    "kofi": "Soutenir le projet — Ko-fi"
+  },
   "TierList": {
     "title": "Tier List",
     "description": "Les classements des dragons arrivent bientôt."
