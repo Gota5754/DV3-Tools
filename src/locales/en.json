@@ -61,7 +61,9 @@
     "title": "Trade Board",
     "subtitle": "Find trading partners",
     "theyHave": "They have what you're missing",
+    "theyHaveShort": "they have",
     "youHave": "They want your duplicates",
+    "youHaveShort": "you have",
     "noMatches": "No matches yet. Update your sticker book!",
     "needIgn": "Set your in-game name in your profile to appear on the Trade Board.",
     "stickerCount": "{count, plural, =1 {# sticker} other {# stickers}}"

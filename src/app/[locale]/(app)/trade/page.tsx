@@ -1,7 +1,8 @@
-import { getTranslations, setRequestLocale } from "next-intl/server";
+import { getTranslations, setRequestLocale, getLocale } from "next-intl/server";
 import { Link } from "@/i18n/navigation";
 import { createClient } from "@/lib/supabase/server";
-import { TradeMatchCard } from "@/components/trade/trade-match-card";
+import { TradeMatchList } from "@/components/trade/trade-match-list";
+import type { Locale } from "@/i18n/routing";
 
 export default async function TradePage({
   params,
@@ -11,6 +12,7 @@ export default async function TradePage({
   const { locale } = await params;
   setRequestLocale(locale);
   const t = await getTranslations("Trade");
+  const currentLocale = (await getLocale()) as Locale;
 
   const supabase = await createClient();
   const { data: { user } } = await supabase.auth.getUser();
@@ -43,11 +45,16 @@ export default async function TradePage({
       {!matches?.length ? (
         <p className="text-slate-500">{t("noMatches")}</p>
       ) : (
-        <div className="grid gap-6">
-          {matches.map((match) => (
-            <TradeMatchCard key={match.partner_id} match={match} />
-          ))}
-        </div>
+        <TradeMatchList
+          matches={matches}
+          locale={currentLocale}
+          labels={{
+            theyHave: t("theyHave"),
+            theyHaveShort: t("theyHaveShort"),
+            youHave: t("youHave"),
+            youHaveShort: t("youHaveShort"),
+          }}
+        />
       )}
     </div>
   );

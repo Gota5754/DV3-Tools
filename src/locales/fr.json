@@ -61,7 +61,9 @@
     "title": "Trade Board",
     "subtitle": "Trouvez des partenaires d'échange",
     "theyHave": "Ils ont ce qu'il vous manque",
+    "theyHaveShort": "ils ont",
     "youHave": "Ils cherchent vos doubles",
+    "youHaveShort": "vous avez",
     "noMatches": "Aucune correspondance pour le moment. Mettez à jour votre album !",
     "needIgn": "Renseignez votre pseudo in-game dans votre profil pour apparaître sur le Trade Board.",
     "stickerCount": "{count, plural, =1 {# sticker} other {# stickers}}"
