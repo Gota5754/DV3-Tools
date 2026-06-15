@@ -5,7 +5,7 @@ import { Button } from "@/components/ui/button";
 import { LanguageSwitcher } from "./language-switcher";
 import { LogoutButton } from "./logout-button";
 import { MobileMenu } from "./mobile-menu";
-import { KofiButton } from "./kofi-button";
+import { KofiNavButton } from "./kofi-button";
 
 export async function Navbar() {
   const t = await getTranslations("Nav");
@@ -45,7 +45,7 @@ export async function Navbar() {
 
         {/* Right side */}
         <div className="ml-auto flex items-center gap-2">
-          <KofiButton className="hidden sm:inline-flex" />
+          <KofiNavButton className="hidden sm:inline-flex" />
           <LanguageSwitcher />
           {user ? (
             <>

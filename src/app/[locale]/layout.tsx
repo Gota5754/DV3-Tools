@@ -37,8 +37,9 @@ export default async function LocaleLayout({
         <NextIntlClientProvider>
           <Navbar />
           <main className="mx-auto w-full max-w-6xl px-4 py-8">{children}</main>
-          <footer className="mt-8 border-t border-slate-800 py-6 text-center">
-            <p className="mb-3 text-xs text-slate-600">DV3 Tools — fan-made companion site, not affiliated with Dragon Village 3</p>
+          <footer className="mt-12 border-t border-slate-800 py-10 text-center">
+            <p className="mb-1 text-sm text-slate-400">If this tool is useful to you, consider supporting the developer</p>
+            <p className="mb-5 text-xs text-slate-600">DV3 Tools — fan-made companion site, not affiliated with Dragon Village 3</p>
             <KofiButton />
           </footer>
         </NextIntlClientProvider>
