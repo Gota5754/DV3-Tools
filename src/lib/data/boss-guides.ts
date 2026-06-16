@@ -34,7 +34,7 @@ export interface BossGuide {
 export const BOSSES: BossGuide[] = [
   {
     slug: "boss-1",
-    name: { fr: "Boss 1", en: "Boss 1" },
+    name: { fr: "Crevasse", en: "Crevasse" },
     image: "/bosses/boss_1.png",
     guide: {
       fr: "Guide à venir.",
@@ -72,7 +72,7 @@ export const BOSSES: BossGuide[] = [
   },
   {
     slug: "boss-2",
-    name: { fr: "Boss 2", en: "Boss 2" },
+    name: { fr: "Chasseur de Dragon", en: "Dragon Slayer" },
     image: "/bosses/boss_2.png",
     guide: {
       fr: "Guide à venir.",
@@ -82,7 +82,7 @@ export const BOSSES: BossGuide[] = [
   },
   {
     slug: "boss-3",
-    name: { fr: "Boss 3", en: "Boss 3" },
+    name: { fr: "Tiamat", en: "Tiamat" },
     image: "/bosses/boss_3.png",
     guide: {
       fr: "Guide à venir.",
