@@ -26,6 +26,7 @@ const ORB_COLOR: Record<OrbTier, string> = {
 export function DragonCard({ dragon, locale, labels }: Props) {
   const [open, setOpen] = useState(false);
   const note = dragon.note ? (locale === "fr" ? dragon.note.fr : dragon.note.en) : null;
+  const dragonName = locale === "fr" ? dragon.name.fr : dragon.name.en;
   const hasBuild =
     dragon.build.runes.length > 0 ||
     dragon.build.stats.length > 0 ||
@@ -39,12 +40,12 @@ export function DragonCard({ dragon, locale, labels }: Props) {
         onClick={() => setOpen(true)}
         className="group relative flex flex-col items-center gap-1 transition-transform hover:scale-105 active:scale-95 focus-visible:outline-none"
       >
-        {/* Dragon sprite */}
-        <div className="relative h-20 w-20">
+        {/* Dragon sprite — double size */}
+        <div className="relative h-40 w-40">
           {dragon.image ? (
             <Image
               src={dragon.image}
-              alt={dragon.name}
+              alt={dragonName}
               fill
               className="object-contain drop-shadow-[0_2px_8px_rgba(0,0,0,0.9)]"
             />
@@ -57,7 +58,7 @@ export function DragonCard({ dragon, locale, labels }: Props) {
         <div className="relative flex h-12 w-40 items-center justify-center">
           <Image src="/bosses/ui/dragon-button.png" alt="" fill className="object-fill" />
           <span className="relative z-10 px-3 text-center text-[11px] font-bold leading-tight text-amber-950">
-            {dragon.name}
+            {dragonName}
           </span>
         </div>
       </button>
@@ -76,11 +77,11 @@ export function DragonCard({ dragon, locale, labels }: Props) {
             <div className="relative flex items-center gap-4 border-b border-slate-700/60 bg-slate-800/60 px-5 py-4">
               {dragon.image && (
                 <div className="relative size-16 shrink-0">
-                  <Image src={dragon.image} alt={dragon.name} fill className="object-contain" />
+                  <Image src={dragon.image} alt={dragonName} fill className="object-contain" />
                 </div>
               )}
               <div className="flex-1 min-w-0">
-                <h3 className="text-lg font-bold text-slate-100">{dragon.name}</h3>
+                <h3 className="text-lg font-bold text-slate-100">{dragonName}</h3>
                 {note && (
                   <p className="mt-0.5 text-xs leading-snug text-emerald-400">{note}</p>
                 )}
@@ -105,20 +106,23 @@ export function DragonCard({ dragon, locale, labels }: Props) {
                         <Gem className="size-3.5" /> {labels.runes}
                       </h4>
                       <div className="flex flex-wrap gap-3">
-                        {dragon.build.runes.map((r) => (
-                          <div
-                            key={r.name}
-                            className="flex items-center gap-2 rounded-xl bg-slate-800/60 px-3 py-2"
-                          >
-                            <div className="relative size-8 shrink-0">
-                              <Image src={r.image} alt={r.name} fill className="object-contain" />
+                        {dragon.build.runes.map((r) => {
+                          const runeName = locale === "fr" ? r.name.fr : r.name.en;
+                          return (
+                            <div
+                              key={runeName}
+                              className="flex items-center gap-2 rounded-xl bg-slate-800/60 px-3 py-2"
+                            >
+                              <div className="relative size-8 shrink-0">
+                                <Image src={r.image} alt={runeName} fill className="object-contain" />
+                              </div>
+                              <div className="leading-tight">
+                                <p className="text-sm font-semibold text-slate-200">{runeName}</p>
+                                <p className="text-xs text-slate-400">×{r.count}</p>
+                              </div>
                             </div>
-                            <div className="leading-tight">
-                              <p className="text-sm font-semibold text-slate-200">{r.name}</p>
-                              <p className="text-xs text-slate-400">×{r.count}</p>
-                            </div>
-                          </div>
-                        ))}
+                          );
+                        })}
                       </div>
                     </section>
                   )}
@@ -135,7 +139,7 @@ export function DragonCard({ dragon, locale, labels }: Props) {
                             key={i}
                             className="rounded-md bg-indigo-500/10 px-2.5 py-1 text-sm font-medium text-indigo-300"
                           >
-                            {s}
+                            {locale === "fr" ? s.fr : s.en}
                           </span>
                         ))}
                       </div>
@@ -149,15 +153,18 @@ export function DragonCard({ dragon, locale, labels }: Props) {
                         {labels.orbs}
                       </h4>
                       <div className="flex flex-wrap gap-2">
-                        {dragon.build.orbs.map((o) => (
-                          <span
-                            key={o.name}
-                            className={`flex items-center gap-1.5 rounded-md px-2.5 py-1 text-sm font-medium ${ORB_COLOR[o.tier]}`}
-                          >
-                            <span className="text-[10px] font-bold opacity-70">{o.tier}</span>
-                            {o.name}
-                          </span>
-                        ))}
+                        {dragon.build.orbs.map((o) => {
+                          const orbName = locale === "fr" ? o.name.fr : o.name.en;
+                          return (
+                            <span
+                              key={orbName}
+                              className={`flex items-center gap-1.5 rounded-md px-2.5 py-1 text-sm font-medium ${ORB_COLOR[o.tier]}`}
+                            >
+                              <span className="text-[10px] font-bold opacity-70">{o.tier}</span>
+                              {orbName}
+                            </span>
+                          );
+                        })}
                       </div>
                     </section>
                   )}

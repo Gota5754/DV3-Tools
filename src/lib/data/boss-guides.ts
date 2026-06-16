@@ -2,25 +2,25 @@ export type DragonTier = "premium" | "mid" | "low";
 export type OrbTier = "S" | "A" | "B";
 
 export interface RuneSet {
-  name: string;
-  image: string;   // path in /public/bosses/gems/
-  count: number;   // how many of this set (e.g. 4)
+  name: { fr: string; en: string };
+  image: string;
+  count: number;
 }
 
 export interface Orb {
-  name: string;
+  name: { fr: string; en: string };
   tier: OrbTier;
 }
 
 export interface DragonBuild {
   runes: RuneSet[];
-  stats: string[];
+  stats: { fr: string; en: string }[];
   orbs: Orb[];
 }
 
 export interface DragonRec {
   id: string;
-  name: string;
+  name: { fr: string; en: string };
   image?: string;
   tier: DragonTier;
   note?: {
@@ -32,15 +32,9 @@ export interface DragonRec {
 
 export interface BossGuide {
   slug: string;
-  name: {
-    fr: string;
-    en: string;
-  };
+  name: { fr: string; en: string };
   image: string;
-  guide: {
-    fr: string;
-    en: string;
-  };
+  guide: { fr: string; en: string };
   dragons: DragonRec[];
 }
 
@@ -60,32 +54,41 @@ Le véritable danger survient lors du réveil des dragons. Chaque réveil inflig
 • Une perte globale pouvant atteindre 75% des statistiques défensives et de rapidité.
 
 L'objectif est de contourner cette mécanique en privilégiant l'élément Ténèbres et en utilisant des équipements capables de purifier les altérations d'état.`,
-      en: "Guide coming soon.",
+      en: `The Crevasse boss is a major technical challenge that requires specific preparation to prevent the team from collapsing. Here are the optimal strategies and compositions to overcome it.
+
+The Core Mechanic: The Sleep Trap
+The fight is centered around a highly punishing status ailment: Sleep.
+The real danger occurs when the dragons wake up. Each awakening inflicts massive stacking debuffs:
+
+• A drastic drop in Defense and Speed (up to -6 stages).
+• An overall loss of up to 75% in defensive and speed stats.
+
+The objective is to bypass this mechanic by prioritizing the Dark element and using equipment capable of cleansing status ailments.`,
     },
     dragons: [
       {
         id: "dragon-serpent",
-        name: "Dragon Serpent",
+        name: { fr: "Dragon Serpent", en: "Serpent Dragon" },
         image: "/bosses/dragons/dragon-serpent.png",
         tier: "premium",
         note: {
           fr: "Dragon GRATUIT — obtenable par reproduction (Aquadragon × Nox). Son vol de vie couplé au set Vampirisme lui permet de soloter le raid Crevasse !",
-          en: "FREE dragon — obtainable via breeding (Aquadragon × Nox). Its lifesteal combined with the Bloodlust set lets it solo the Crevasse raid!",
+          en: "FREE Dragon — obtainable through breeding (Aqua Dragon × Nox). Its Life Steal ability, combined with the Lifesteal set, allows it to solo the Crevasse raid!",
         },
         build: {
           runes: [
-            { name: "Vampirisme", image: "/bosses/gems/gem_bloodlust.png", count: 4 },
-            { name: "Flamme",     image: "/bosses/gems/gem_blaze.png",     count: 2 },
+            { name: { fr: "Vampirisme", en: "Lifesteal" }, image: "/bosses/gems/gem_bloodlust.png", count: 4 },
+            { name: { fr: "Flamme",     en: "Flame"     }, image: "/bosses/gems/gem_blaze.png",     count: 2 },
           ],
           stats: [
-            "Prob. Double Attaque",
-            "Prob. Triple Attaque",
-            "Attaque",
-            "Vitesse",
+            { fr: "Prob. Double Attaque", en: "Double Attack Chance" },
+            { fr: "Prob. Triple Attaque", en: "Triple Attack Chance" },
+            { fr: "Attaque",              en: "Attack"               },
+            { fr: "Vitesse",              en: "Speed"                },
           ],
           orbs: [
-            { name: "Trou Noir",          tier: "S" },
-            { name: "Bombe des ténèbres", tier: "A" },
+            { name: { fr: "Trou Noir",          en: "Black Hole"  }, tier: "S" },
+            { name: { fr: "Bombe des ténèbres", en: "Dark Bomb"   }, tier: "A" },
           ],
         },
       },

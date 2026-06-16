@@ -93,7 +93,7 @@ export default async function BossGuidePage({
                 </h3>
                 <div className="flex flex-wrap gap-6">
                   {dragons.map((dragon) => (
-                    <DragonCard key={dragon.id} dragon={dragon} locale={locale} labels={dragonLabels} />
+                    <DragonCard key={dragon.id} dragon={dragon} locale={locale as string} labels={dragonLabels} />
                   ))}
                 </div>
               </div>
