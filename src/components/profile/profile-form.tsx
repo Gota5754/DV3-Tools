@@ -7,27 +7,37 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 
+type GameServer = "europe" | "america" | "asia" | null;
+
 const UID_RE = /^[A-Za-z0-9]{3}-[A-Za-z0-9]{3}-[A-Za-z0-9]{3}$/;
+
+const SERVERS: { value: GameServer; flag: string }[] = [
+  { value: "europe",  flag: "🇪🇺" },
+  { value: "america", flag: "🌎" },
+  { value: "asia",    flag: "🌏" },
+];
 
 export function ProfileForm({
   initialIgn,
   initialDiscord,
   initialUid,
+  initialServer,
 }: {
   initialIgn: string;
   initialDiscord: string;
   initialUid: string;
+  initialServer: GameServer;
 }) {
   const t = useTranslations("Profile");
   const tCommon = useTranslations("Common");
   const [ign, setIgn] = useState(initialIgn);
   const [discord, setDiscord] = useState(initialDiscord);
   const [uid, setUid] = useState(initialUid);
+  const [server, setServer] = useState<GameServer>(initialServer);
   const [status, setStatus] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
 
   function formatUid(value: string) {
-    // Keep only alphanumeric chars, max 9
     const chars = value.replace(/[^A-Za-z0-9]/g, "").slice(0, 9);
     if (chars.length <= 3) return chars;
     if (chars.length <= 6) return `${chars.slice(0, 3)}-${chars.slice(3)}`;
@@ -50,6 +60,7 @@ export function ProfileForm({
         ign: ign.trim() || null,
         discord: discord.trim() || null,
         uid: uid.trim() || null,
+        server: server,
         updated_at: new Date().toISOString(),
       })
       .eq("id", user!.id);
@@ -109,6 +120,29 @@ export function ProfileForm({
             />
           </div>
           <p className="text-sm text-slate-500">{t("discordHelp")}</p>
+        </div>
+
+        {/* Server */}
+        <div className="space-y-2">
+          <Label className="text-slate-300">{t("serverLabel")}</Label>
+          <div className="flex gap-2">
+            {SERVERS.map(({ value, flag }) => (
+              <button
+                key={value!}
+                type="button"
+                onClick={() => setServer(server === value ? null : value)}
+                className={`flex flex-1 items-center justify-center gap-2 rounded-xl border px-3 py-2.5 text-sm font-semibold transition-all ${
+                  server === value
+                    ? "border-amber-500/60 bg-amber-500/15 text-amber-300"
+                    : "border-slate-700 bg-slate-800 text-slate-400 hover:border-slate-600 hover:text-slate-300"
+                }`}
+              >
+                <span>{flag}</span>
+                <span>{t(`server.${value!}`)}</span>
+              </button>
+            ))}
+          </div>
+          <p className="text-sm text-slate-500">{t("serverHelp")}</p>
         </div>
 
         {status && (

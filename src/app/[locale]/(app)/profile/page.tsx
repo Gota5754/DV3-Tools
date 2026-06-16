@@ -18,7 +18,7 @@ export default async function ProfilePage({
 
   const { data: profile } = await supabase
     .from("profiles")
-    .select("ign, discord, uid")
+    .select("ign, discord, uid, server")
     .eq("id", user!.id)
     .single();
 
@@ -27,7 +27,12 @@ export default async function ProfilePage({
       <h1 className="bg-gradient-to-r from-amber-300 via-amber-400 to-amber-600 bg-clip-text text-3xl font-extrabold tracking-wide text-transparent drop-shadow-[0_2px_8px_rgba(245,158,11,0.25)]">
         {t("title")}
       </h1>
-      <ProfileForm initialIgn={profile?.ign ?? ""} initialDiscord={profile?.discord ?? ""} initialUid={profile?.uid ?? ""} />
+      <ProfileForm
+        initialIgn={profile?.ign ?? ""}
+        initialDiscord={profile?.discord ?? ""}
+        initialUid={profile?.uid ?? ""}
+        initialServer={profile?.server ?? null}
+      />
     </div>
   );
 }

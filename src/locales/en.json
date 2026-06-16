@@ -48,6 +48,13 @@
     "discordLabel": "Discord (optional)",
     "discordPlaceholder": "your.username",
     "discordHelp": "Shown on the Trade Board to make trading easier.",
+    "serverLabel": "Game server",
+    "serverHelp": "Shown on the Trade Board to help you find players on the same server.",
+    "server": {
+      "europe": "Europe",
+      "america": "America",
+      "asia": "Asia"
+    },
     "saved": "Profile saved!"
   },
   "Stickers": {
@@ -78,7 +85,10 @@
     "sending": "Sending…",
     "offerSent": "Offer sent!",
     "offerError": "Error while sending.",
-    "pickBoth": "Select at least one sticker on each side."
+    "pickBoth": "Select at least one sticker on each side.",
+    "searchPlaceholder": "Search for a player…",
+    "filterAll": "All",
+    "noResults": "No players found."
   },
   "MyTrades": {
     "title": "My Trades",

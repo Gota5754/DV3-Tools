@@ -48,6 +48,13 @@
     "discordLabel": "Discord (optionnel)",
     "discordPlaceholder": "votre.pseudo",
     "discordHelp": "Affiché sur le Trade Board pour faciliter les échanges.",
+    "serverLabel": "Serveur de jeu",
+    "serverHelp": "Affiché sur le Trade Board pour faciliter les échanges avec des joueurs du même serveur.",
+    "server": {
+      "europe": "Europe",
+      "america": "America",
+      "asia": "Asia"
+    },
     "saved": "Profil enregistré !"
   },
   "Stickers": {
@@ -78,7 +85,10 @@
     "sending": "Envoi…",
     "offerSent": "Proposition envoyée !",
     "offerError": "Erreur lors de l'envoi.",
-    "pickBoth": "Sélectionnez au moins un sticker de chaque côté."
+    "pickBoth": "Sélectionnez au moins un sticker de chaque côté.",
+    "searchPlaceholder": "Rechercher un joueur…",
+    "filterAll": "Tous",
+    "noResults": "Aucun joueur trouvé."
   },
   "MyTrades": {
     "title": "Mes échanges",

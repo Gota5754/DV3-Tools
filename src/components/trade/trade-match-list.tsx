@@ -1,5 +1,7 @@
 "use client";
 
+import { useState } from "react";
+import { Search } from "lucide-react";
 import { Accordion, AccordionItem } from "@/components/ui/accordion";
 import { Separator } from "@/components/ui/separator";
 import { stickerCoords, COLLECTION_NAMES } from "@/lib/data/stickers";
@@ -7,6 +9,14 @@ import { StickerThumb } from "./sticker-thumb";
 import { TradeOfferBuilder, type BuilderLabels } from "./trade-offer-builder";
 import type { TradeMatch } from "@/lib/supabase/types";
 import type { Locale } from "@/i18n/routing";
+
+type GameServer = "europe" | "america" | "asia";
+
+const SERVER_LABELS: Record<GameServer, { flag: string; label: string }> = {
+  europe:  { flag: "🇪🇺", label: "Europe" },
+  america: { flag: "🌎", label: "America" },
+  asia:    { flag: "🌏", label: "Asia" },
+};
 
 function groupByCollection(ids: number[]): Map<number, number[]> {
   const map = new Map<number, number[]>();
@@ -18,15 +28,7 @@ function groupByCollection(ids: number[]): Map<number, number[]> {
   return map;
 }
 
-function StickerGrid({
-  ids,
-  locale,
-  accentClass,
-}: {
-  ids: number[];
-  locale: Locale;
-  accentClass: string;
-}) {
+function StickerGrid({ ids, locale, accentClass }: { ids: number[]; locale: Locale; accentClass: string }) {
   const grouped = groupByCollection(ids);
   return (
     <div className="space-y-4">
@@ -47,6 +49,18 @@ function StickerGrid({
   );
 }
 
+function ServerBadge({ server }: { server: string | null }) {
+  if (!server) return null;
+  const s = server as GameServer;
+  const info = SERVER_LABELS[s];
+  if (!info) return null;
+  return (
+    <span className="flex items-center gap-1 rounded-md bg-slate-700/60 px-2 py-0.5 text-xs font-medium text-slate-300">
+      {info.flag} {info.label}
+    </span>
+  );
+}
+
 function MatchSummary({ match, theyHaveLabel, youHaveLabel }: {
   match: TradeMatch;
   theyHaveLabel: string;
@@ -62,6 +76,7 @@ function MatchSummary({ match, theyHaveLabel, youHaveLabel }: {
               {match.partner_uid}
             </span>
           )}
+          <ServerBadge server={match.partner_server} />
           {match.partner_discord && (
             <span className="flex items-center gap-1 text-xs text-indigo-400">
               <svg viewBox="0 0 24 24" className="size-3 fill-current" aria-hidden="true">
@@ -99,53 +114,115 @@ export function TradeMatchList({
     youHave: string;
     theyHaveShort: string;
     youHaveShort: string;
+    searchPlaceholder: string;
+    filterAll: string;
+    noResults: string;
   };
   builderLabels: BuilderLabels;
 }) {
+  const [search, setSearch] = useState("");
+  const [serverFilter, setServerFilter] = useState<GameServer | null>(null);
+
   const sorted = [...matches].sort(
     (a, b) =>
       (b.they_have.length + b.they_need.length) -
       (a.they_have.length + a.they_need.length)
   );
 
+  const filtered = sorted.filter((m) => {
+    const matchesSearch = m.partner_ign.toLowerCase().includes(search.toLowerCase());
+    const matchesServer = !serverFilter || m.partner_server === serverFilter;
+    return matchesSearch && matchesServer;
+  });
+
   return (
-    <Accordion>
-      {sorted.map((match) => (
-        <AccordionItem
-          key={match.partner_id}
-          summary={
-            <MatchSummary
-              match={match}
-              theyHaveLabel={labels.theyHaveShort}
-              youHaveLabel={labels.youHaveShort}
-            />
-          }
-        >
-          <div className="space-y-5">
-            <div>
-              <p className="mb-3 text-xs font-semibold uppercase tracking-widest text-amber-400">
-                {labels.theyHave}
-              </p>
-              <StickerGrid ids={match.they_have} locale={locale} accentClass="text-amber-600" />
-            </div>
-            <Separator className="bg-slate-700/60" />
-            <div>
-              <p className="mb-3 text-xs font-semibold uppercase tracking-widest text-indigo-400">
-                {labels.youHave}
-              </p>
-              <StickerGrid ids={match.they_need} locale={locale} accentClass="text-indigo-600" />
-            </div>
-            <div className="flex justify-end pt-1">
-              <TradeOfferBuilder
-                userId={userId}
-                match={match}
-                locale={locale}
-                labels={builderLabels}
-              />
-            </div>
-          </div>
-        </AccordionItem>
-      ))}
-    </Accordion>
+    <div className="space-y-4">
+      {/* Search + server filters */}
+      <div className="flex flex-col gap-3 sm:flex-row sm:items-center">
+        <div className="relative flex-1">
+          <Search className="absolute left-3 top-1/2 size-4 -translate-y-1/2 text-slate-500" />
+          <input
+            type="search"
+            value={search}
+            onChange={(e) => setSearch(e.target.value)}
+            placeholder={labels.searchPlaceholder}
+            className="w-full rounded-xl border border-slate-700 bg-slate-800/60 py-2 pl-9 pr-4 text-sm text-slate-100 placeholder:text-slate-500 focus:border-amber-500/60 focus:outline-none focus:ring-1 focus:ring-amber-500/20"
+          />
+        </div>
+        <div className="flex gap-1.5">
+          <button
+            type="button"
+            onClick={() => setServerFilter(null)}
+            className={`rounded-xl border px-3 py-2 text-xs font-semibold transition-all ${
+              !serverFilter
+                ? "border-amber-500/60 bg-amber-500/15 text-amber-300"
+                : "border-slate-700 bg-slate-800/60 text-slate-400 hover:border-slate-600 hover:text-slate-300"
+            }`}
+          >
+            {labels.filterAll}
+          </button>
+          {(Object.entries(SERVER_LABELS) as [GameServer, { flag: string; label: string }][]).map(
+            ([key, { flag, label }]) => (
+              <button
+                key={key}
+                type="button"
+                onClick={() => setServerFilter(serverFilter === key ? null : key)}
+                className={`rounded-xl border px-3 py-2 text-xs font-semibold transition-all ${
+                  serverFilter === key
+                    ? "border-amber-500/60 bg-amber-500/15 text-amber-300"
+                    : "border-slate-700 bg-slate-800/60 text-slate-400 hover:border-slate-600 hover:text-slate-300"
+                }`}
+              >
+                {flag} {label}
+              </button>
+            )
+          )}
+        </div>
+      </div>
+
+      {/* Results */}
+      {filtered.length === 0 ? (
+        <p className="py-8 text-center text-sm text-slate-500">{labels.noResults}</p>
+      ) : (
+        <Accordion>
+          {filtered.map((match) => (
+            <AccordionItem
+              key={match.partner_id}
+              summary={
+                <MatchSummary
+                  match={match}
+                  theyHaveLabel={labels.theyHaveShort}
+                  youHaveLabel={labels.youHaveShort}
+                />
+              }
+            >
+              <div className="space-y-5">
+                <div>
+                  <p className="mb-3 text-xs font-semibold uppercase tracking-widest text-amber-400">
+                    {labels.theyHave}
+                  </p>
+                  <StickerGrid ids={match.they_have} locale={locale} accentClass="text-amber-600" />
+                </div>
+                <Separator className="bg-slate-700/60" />
+                <div>
+                  <p className="mb-3 text-xs font-semibold uppercase tracking-widest text-indigo-400">
+                    {labels.youHave}
+                  </p>
+                  <StickerGrid ids={match.they_need} locale={locale} accentClass="text-indigo-600" />
+                </div>
+                <div className="flex justify-end pt-1">
+                  <TradeOfferBuilder
+                    userId={userId}
+                    match={match}
+                    locale={locale}
+                    labels={builderLabels}
+                  />
+                </div>
+              </div>
+            </AccordionItem>
+          ))}
+        </Accordion>
+      )}
+    </div>
   );
 }

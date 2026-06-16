@@ -26,6 +26,7 @@ export interface Database {
           ign: string | null;
           discord: string | null;
           uid: string | null;
+          server: "europe" | "america" | "asia" | null;
           created_at: string;
           updated_at: string;
         };
@@ -34,6 +35,7 @@ export interface Database {
           ign?: string | null;
           discord?: string | null;
           uid?: string | null;
+          server?: "europe" | "america" | "asia" | null;
           created_at?: string;
           updated_at?: string;
         };
@@ -42,6 +44,7 @@ export interface Database {
           ign?: string | null;
           discord?: string | null;
           uid?: string | null;
+          server?: "europe" | "america" | "asia" | null;
           created_at?: string;
           updated_at?: string;
         };
@@ -162,6 +165,7 @@ export interface Database {
           partner_ign: string;
           partner_discord: string | null;
           partner_uid: string | null;
+          partner_server: "europe" | "america" | "asia" | null;
           they_have: number[];
           they_need: number[];
         }[];

@@ -54,6 +54,9 @@ export default async function TradePage({
             theyHaveShort: t("theyHaveShort"),
             youHave: t("youHave"),
             youHaveShort: t("youHaveShort"),
+            searchPlaceholder: t("searchPlaceholder"),
+            filterAll: t("filterAll"),
+            noResults: t("noResults"),
           }}
           builderLabels={{
             propose: t("propose"),
