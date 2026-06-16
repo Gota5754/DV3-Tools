@@ -115,6 +115,18 @@
   },
   "BossGuides": {
     "title": "Guides World Boss",
-    "description": "Les guides pour les 3 World Boss arrivent bientôt."
+    "subtitle": "Conseils et builds de dragons pour chaque boss de raid",
+    "description": "Les guides pour les 3 World Boss arrivent bientôt.",
+    "backToList": "Retour aux boss",
+    "guideTitle": "Guide du boss",
+    "recommendedDragons": "Dragons recommandés",
+    "noDragonsYet": "Les builds de dragons arrivent bientôt.",
+    "tierPremium": "Premium",
+    "tierMid": "Mi-chemin",
+    "tierLow": "Accessible",
+    "labelRunes": "Sets de runes",
+    "labelStats": "Stats prioritaires",
+    "labelOrbs": "Orbes",
+    "labelClose": "Fermer"
   }
 }
