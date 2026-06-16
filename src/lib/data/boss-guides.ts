@@ -2,18 +2,24 @@ export type DragonTier = "premium" | "mid" | "low";
 
 export interface RuneSet {
   name: string;
-  slots: string; // e.g. "2/4/6 ATK"
+  slots: string;
 }
 
 export interface DragonBuild {
   runes: RuneSet[];
-  stats: string[];   // priority stats
-  orbs: string[];    // recommended orbs
+  stats: string[];
+  orbs: string[];
 }
 
 export interface DragonRec {
+  id: string;
   name: string;
+  image?: string;    // sprite path relative to /public
   tier: DragonTier;
+  note?: {
+    fr: string;
+    en: string;
+  };
   build: DragonBuild;
 }
 
@@ -23,7 +29,7 @@ export interface BossGuide {
     fr: string;
     en: string;
   };
-  image: string;       // path relative to /public
+  image: string;
   guide: {
     fr: string;
     en: string;
@@ -51,30 +57,18 @@ L'objectif est de contourner cette mécanique en privilégiant l'élément Tén�
     },
     dragons: [
       {
-        name: "Dragon Premium A",
+        id: "dragon-serpent",
+        name: "Dragon Serpent",
+        image: "/bosses/dragons/dragon-serpent.png",
         tier: "premium",
-        build: {
-          runes: [{ name: "Fatal", slots: "2/4/6 ATK" }],
-          stats: ["ATK%", "CRI Rate", "CRI DMG"],
-          orbs: ["Orbe de dégâts", "Orbe critique"],
+        note: {
+          fr: "Se réveille automatiquement du Sommeil — peut solo le raid Crevasse. Obtenable par breeding.",
+          en: "Auto-wakes from Sleep — can solo the Crevasse raid. Obtainable via breeding.",
         },
-      },
-      {
-        name: "Dragon Mid B",
-        tier: "mid",
         build: {
-          runes: [{ name: "Swift", slots: "2/4/6 SPD" }],
-          stats: ["SPD", "ATK%", "HP%"],
-          orbs: ["Orbe de vitesse"],
-        },
-      },
-      {
-        name: "Dragon Low C",
-        tier: "low",
-        build: {
-          runes: [{ name: "Revenge", slots: "2/4/6 ATK" }],
-          stats: ["ATK%", "HP%", "DEF%"],
-          orbs: ["Orbe basique"],
+          runes: [],
+          stats: [],
+          orbs: [],
         },
       },
     ],

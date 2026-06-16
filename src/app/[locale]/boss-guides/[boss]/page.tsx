@@ -26,14 +26,15 @@ export default async function BossGuidePage({
   const tiers: { key: DragonTier; label: string; accent: string }[] = [
     { key: "premium", label: t("tierPremium"), accent: "text-amber-400" },
     { key: "mid",     label: t("tierMid"),     accent: "text-indigo-400" },
-    { key: "low",     label: t("tierLow"),      accent: "text-slate-400" },
+    { key: "low",     label: t("tierLow"),     accent: "text-slate-400" },
   ];
 
   const dragonLabels = {
-    runes: t("labelRunes"),
-    stats: t("labelStats"),
-    orbs:  t("labelOrbs"),
-    close: t("labelClose"),
+    runes:     t("labelRunes"),
+    stats:     t("labelStats"),
+    orbs:      t("labelOrbs"),
+    close:     t("labelClose"),
+    buildSoon: t("buildSoon"),
   };
 
   return (
@@ -77,7 +78,7 @@ export default async function BossGuidePage({
 
       {/* Dragon recommendations */}
       {boss.dragons.length > 0 && (
-        <section className="space-y-6">
+        <section className="space-y-8">
           <h2 className="text-sm font-semibold uppercase tracking-widest text-slate-400">
             {t("recommendedDragons")}
           </h2>
@@ -86,13 +87,13 @@ export default async function BossGuidePage({
             const dragons = boss.dragons.filter((d) => d.tier === key);
             if (dragons.length === 0) return null;
             return (
-              <div key={key} className="space-y-2">
+              <div key={key} className="space-y-4">
                 <h3 className={`text-xs font-semibold uppercase tracking-widest ${accent}`}>
                   {label}
                 </h3>
-                <div className="grid gap-2 sm:grid-cols-2">
+                <div className="flex flex-wrap gap-6">
                   {dragons.map((dragon) => (
-                    <DragonCard key={dragon.name} dragon={dragon} labels={dragonLabels} />
+                    <DragonCard key={dragon.id} dragon={dragon} locale={locale} labels={dragonLabels} />
                   ))}
                 </div>
               </div>

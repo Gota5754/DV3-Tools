@@ -127,6 +127,7 @@
     "labelRunes": "Sets de runes",
     "labelStats": "Stats prioritaires",
     "labelOrbs": "Orbes",
-    "labelClose": "Fermer"
+    "labelClose": "Fermer",
+    "buildSoon": "Build à venir — revenez plus tard !"
   }
 }
