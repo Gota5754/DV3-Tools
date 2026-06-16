@@ -37,7 +37,16 @@ export const BOSSES: BossGuide[] = [
     name: { fr: "Crevasse", en: "Crevasse" },
     image: "/bosses/boss_1.png",
     guide: {
-      fr: "Guide à venir.",
+      fr: `Le boss Crevasse est un défi technique majeur qui nécessite une préparation spécifique pour éviter que l'équipe ne s'effondre. Voici les stratégies et compositions optimales pour en venir à bout.
+
+La Mécanique Centrale : Le Piège du Sommeil
+Le combat est centré sur une altération d'état très punitive : le Sommeil.
+Le véritable danger survient lors du réveil des dragons. Chaque réveil inflige d'énormes malus cumulatifs :
+
+• Une baisse drastique de la Défense et de la Vitesse (jusqu'à -6 niveaux).
+• Une perte globale pouvant atteindre 75% des statistiques défensives et de rapidité.
+
+L'objectif est de contourner cette mécanique en privilégiant l'élément Ténèbres et en utilisant des équipements capables de purifier les altérations d'état.`,
       en: "Guide coming soon.",
     },
     dragons: [
