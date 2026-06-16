@@ -9,7 +9,8 @@ alter table public.profiles
   check (server in ('europe', 'america', 'asia'));
 
 -- 2. Replace get_trade_matches to include discord, uid, server
-create or replace function public.get_trade_matches()
+drop function if exists public.get_trade_matches();
+create function public.get_trade_matches()
 returns table (
   partner_id uuid,
   partner_ign text,
