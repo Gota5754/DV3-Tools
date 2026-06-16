@@ -1,20 +1,27 @@
 export type DragonTier = "premium" | "mid" | "low";
+export type OrbTier = "S" | "A" | "B";
 
 export interface RuneSet {
   name: string;
-  slots: string;
+  image: string;   // path in /public/bosses/gems/
+  count: number;   // how many of this set (e.g. 4)
+}
+
+export interface Orb {
+  name: string;
+  tier: OrbTier;
 }
 
 export interface DragonBuild {
   runes: RuneSet[];
   stats: string[];
-  orbs: string[];
+  orbs: Orb[];
 }
 
 export interface DragonRec {
   id: string;
   name: string;
-  image?: string;    // sprite path relative to /public
+  image?: string;
   tier: DragonTier;
   note?: {
     fr: string;
@@ -62,13 +69,24 @@ L'objectif est de contourner cette mécanique en privilégiant l'élément Tén�
         image: "/bosses/dragons/dragon-serpent.png",
         tier: "premium",
         note: {
-          fr: "Se réveille automatiquement du Sommeil — peut solo le raid Crevasse. Obtenable par breeding.",
-          en: "Auto-wakes from Sleep — can solo the Crevasse raid. Obtainable via breeding.",
+          fr: "Dragon GRATUIT — obtenable par reproduction (Aquadragon × Nox). Son vol de vie couplé au set Vampirisme lui permet de soloter le raid Crevasse !",
+          en: "FREE dragon — obtainable via breeding (Aquadragon × Nox). Its lifesteal combined with the Bloodlust set lets it solo the Crevasse raid!",
         },
         build: {
-          runes: [],
-          stats: [],
-          orbs: [],
+          runes: [
+            { name: "Vampirisme", image: "/bosses/gems/gem_bloodlust.png", count: 4 },
+            { name: "Flamme",     image: "/bosses/gems/gem_blaze.png",     count: 2 },
+          ],
+          stats: [
+            "Prob. Double Attaque",
+            "Prob. Triple Attaque",
+            "Attaque",
+            "Vitesse",
+          ],
+          orbs: [
+            { name: "Trou Noir",          tier: "S" },
+            { name: "Bombe des ténèbres", tier: "A" },
+          ],
         },
       },
     ],
