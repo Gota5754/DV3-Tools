@@ -44,12 +44,12 @@ export default async function BossGuidesPage({
               className="group relative overflow-hidden rounded-2xl border border-slate-700 bg-slate-800/50 shadow-lg shadow-black/40 transition-all hover:border-amber-500/60 hover:shadow-amber-500/10"
             >
               {/* Boss image */}
-              <div className="relative h-56 w-full overflow-hidden bg-slate-900">
+              <div className="relative h-72 w-full overflow-hidden bg-slate-900">
                 <Image
                   src={boss.image}
                   alt={boss.slug}
                   fill
-                  className="object-contain p-4 transition-transform duration-300 group-hover:scale-105"
+                  className="object-contain p-2 transition-transform duration-300 group-hover:scale-105"
                 />
               </div>
 
